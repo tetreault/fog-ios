@@ -14,7 +14,7 @@ class AppDelegate: UIResponder {
 extension AppDelegate: UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = RootController(fetcher: self.fetcher)
+        window.rootViewController = MapController(fetcher: self.fetcher)
         window.makeKeyAndVisible()
 
         self.window = window

@@ -1,4 +1,4 @@
 github "3lvis/Networking" "master"
 github "bakkenbaeck/SweetUIKit" "master"
 github "bakkenbaeck/SweetSwift" "master"
-github "bakkenbaeck/SweetFoundation" "master"
+github "bakkenbaeck/SweetFoundation" "feature/carthage"
