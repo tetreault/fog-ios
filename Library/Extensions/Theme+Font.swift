@@ -1,6 +1,7 @@
 import UIKit
 
 extension UIFont {
+
     class func light(size: Double) -> UIFont {
         return UIFont.systemFont(ofSize: CGFloat(size), weight: UIFontWeightLight)
     }

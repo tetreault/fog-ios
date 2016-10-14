@@ -30,6 +30,7 @@
 		9F1F5B1D1DAFAF5F00636502 /* SweetSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0E1DAFAF4600636502 /* SweetSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F1F5B1E1DAFAF5F00636502 /* SweetUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F1F5B211DAFB05700636502 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B201DAFB05700636502 /* MapKit.framework */; };
+		9F1F5B231DB1140E00636502 /* FogLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F5B221DB1140E00636502 /* FogLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,7 @@
 		9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SweetUIKit.framework; sourceTree = "<group>"; };
 		9F1F5B111DAFAF4600636502 /* SweetUIKit.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SweetUIKit.framework.dSYM; sourceTree = "<group>"; };
 		9F1F5B201DAFB05700636502 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9F1F5B221DB1140E00636502 /* FogLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			children = (
 				146E27A41BCD51F200959BBA /* AppDelegate.swift */,
 				146E27A51BCD51F200959BBA /* MapController.swift */,
+				9F1F5B221DB1140E00636502 /* FogLayer.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			files = (
 				146E27AC1BCD51F200959BBA /* AppDelegate.swift in Sources */,
 				14425E551C97078A00F0FAD1 /* Theme+Font.swift in Sources */,
+				9F1F5B231DB1140E00636502 /* FogLayer.swift in Sources */,
 				146E27AD1BCD51F200959BBA /* MapController.swift in Sources */,
 				143F99F61D8C5B78005D1552 /* Theme+Color.swift in Sources */,
 				14425E591C97078A00F0FAD1 /* Fetcher.swift in Sources */,
@@ -396,7 +400,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = iOS/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demoapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -416,7 +420,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = iOS/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demoapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
