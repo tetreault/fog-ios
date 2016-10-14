@@ -22,4 +22,10 @@ extension AppDelegate: UIApplicationDelegate {
 
         return true
     }
+
+    func applicationWillResignActive(_ application: UIApplication) {
+        if let controller = self.window?.rootViewController as? MapController {
+            controller.history.synchronize()
+        }
+    }
 }

@@ -5,6 +5,48 @@ import CoreImage
 
 fileprivate let userPinReuseIdentifier = "userPin"
 
+struct Position: Hashable {
+    var latitude: CLLocationDegrees
+    var longitude: CLLocationDegrees
+
+    var hashValue: Int {
+        return (self.longitude + self.latitude).hashValue
+    }
+
+    static func == (lhs: Position, rhs: Position) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude && lhs.hashValue == rhs.hashValue
+    }
+}
+
+class Travel {
+    var positions: Set<Position>
+
+    init(with positions: Set<Position> = []) {
+        self.positions = positions
+    }
+}
+
+class GPSHistory {
+    fileprivate lazy var historyFilePath: String = {
+        let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.absoluteString
+        return documentPath.path
+    }()
+
+    var travels: [Travel]
+
+    init(with travels: [Travel] = []) {
+        self.travels = travels
+    }
+
+    func synchronize() {
+        let url = URL(fileURLWithPath: self.historyFilePath)
+        let data = try! Data(contentsOf: url)
+        let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyHashable]
+
+        print(json?.description)
+    }
+}
+
 class MapController: UIViewController {
     var fetcher: Fetcher
 
@@ -13,6 +55,14 @@ class MapController: UIViewController {
     var isTrackingUser = true
 
     var isDebuggingPositions = false
+
+    lazy var history: GPSHistory = {
+        let history = GPSHistory()
+        let travel = Travel()
+        history.travels.append(travel)
+
+        return history
+    }()
 
     lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -196,6 +246,10 @@ extension MapController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+
+        if let travel = self.history.travels.last {
+            travel.positions.insert(Position(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+        }
 
         if self.isTrackingUser {
             let region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
