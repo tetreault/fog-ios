@@ -22,13 +22,13 @@ class FogLayer: CALayer {
     override func draw(in ctx: CGContext) {
         UIGraphicsPushContext(ctx)
 
-        self.backgroundImageColor.withAlphaComponent(0.5).setFill()
+        self.backgroundImageColor.withAlphaComponent(0.75).setFill()
         UIColor.clear.setStroke()
 
         ctx.fill(self.bounds)
         ctx.setBlendMode(.clear)
-        ctx.setLineWidth(self.path?.lineWidth ?? 8)
 
+        self.path?.lineWidth = 14
         self.path?.stroke()
         self.path?.fill()
         

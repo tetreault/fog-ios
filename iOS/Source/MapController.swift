@@ -65,18 +65,49 @@ class MapController: UIViewController {
         self.displayLink.add(to: RunLoop.main, forMode: .commonModes)
 
         // Bonn office: +50.73396677,+7.09824396
-        let center = CLLocationCoordinate2D(latitude: CLLocationDegrees(50.7339560964271), longitude: CLLocationDegrees(7.098214368263295))
-        let circle = MKCircle(center: center, radius: CLLocationDistance(150.0)) // meter radius
 
-        let points = [CLLocationCoordinate2D(latitude: CLLocationDegrees(50.7350560964271), longitude: CLLocationDegrees(7.098214368263295)),
-            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.7360560964271), longitude: CLLocationDegrees(7.098314368263295)),
-            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.7370560964271), longitude: CLLocationDegrees(7.099414368263295)),
-            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.7380560964271), longitude: CLLocationDegrees(7.099514368263295)),
-            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.7390560964271), longitude: CLLocationDegrees(7.098614368263295)),
+        let points = [
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.733956), longitude: CLLocationDegrees(7.098214)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734176), longitude: CLLocationDegrees(7.098603)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.733649), longitude: CLLocationDegrees(7.099952)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734431), longitude: CLLocationDegrees(7.10092)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734047), longitude: CLLocationDegrees(7.101789)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.73454), longitude: CLLocationDegrees(7.102401)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734356), longitude: CLLocationDegrees(7.102975)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734258), longitude: CLLocationDegrees(7.103603)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734431), longitude: CLLocationDegrees(7.104472)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734601), longitude: CLLocationDegrees(7.104649)),
+            ]
+
+        let points2 = [
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669630), longitude: CLLocationDegrees(7.183780)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669427), longitude: CLLocationDegrees(7.182988)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669046), longitude: CLLocationDegrees(7.18346)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.66857), longitude: CLLocationDegrees(7.182409)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669116), longitude: CLLocationDegrees(7.181304)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.698243), longitude: CLLocationDegrees(7.139955)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.730091), longitude: CLLocationDegrees(7.102103)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.732501), longitude: CLLocationDegrees(7.097222)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.733256), longitude: CLLocationDegrees(7.097723)),
+            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734176), longitude: CLLocationDegrees(7.098603)),
         ]
-        let line = MKPolyline(coordinates: points, count: points.count)
 
-        self.mapView.addOverlays([circle, line])
+        let line1 = MKPolyline(coordinates: points, count: points.count)
+        let line2 = MKPolyline(coordinates: points2, count: points2.count)
+
+        self.mapView.addOverlays([line1, line2])
+
+        var circles = [MKCircle]()
+
+        for point in points {
+            circles.append(MKCircle(center: point, radius: CLLocationDistance(50.0)))
+        }
+
+        for point in points2 {
+            circles.append(MKCircle(center: point, radius: CLLocationDistance(50.0)))
+        }
+
+        self.mapView.addOverlays(circles)
 
         if self.isDebuggingPositions {
             var idx = 1
@@ -142,7 +173,6 @@ class MapController: UIViewController {
 
         path.lineJoinStyle = .round
         path.lineCapStyle = .round
-        path.lineWidth = 30
 
         self.fogLayer.path = path
         self.fogLayer.setNeedsDisplay()
@@ -180,16 +210,16 @@ extension MapController: MKMapViewDelegate {
         self.isTrackingUser = !self.mapViewRegionDidChangeFromUserInteraction()
     }
 
-    // Uncomment to draw paths for debugging
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        if let overlay = overlay as? MKPolyline {
-//            let lineRenderer = MKPolylineRenderer(polyline: overlay)
-//            lineRenderer.lineWidth = 20
-//            lineRenderer.strokeColor = .magenta
-//
-//            return lineRenderer
+//    // Uncomment to draw paths for debugging
+//        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//            if let overlay = overlay as? MKPolyline {
+//                let lineRenderer = MKPolylineRenderer(polyline: overlay)
+//                lineRenderer.lineWidth = 20
+//                lineRenderer.strokeColor = .magenta
+//    
+//                return lineRenderer
+//            }
+//    
+//            return MKOverlayRenderer(overlay: overlay)
 //        }
-//
-//        return MKOverlayRenderer(overlay: overlay)
-//    }
 }
