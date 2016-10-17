@@ -25,7 +25,13 @@ extension AppDelegate: UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
         if let controller = self.window?.rootViewController as? MapController {
-            controller.history.synchronize()
+            controller.synchronize()
+        }
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        if let controller = self.window?.rootViewController as? MapController {
+            controller.synchronize()
         }
     }
 }
