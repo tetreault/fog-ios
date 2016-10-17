@@ -28,8 +28,7 @@ class Travel {
 
 class GPSHistory {
     fileprivate lazy var historyFilePath: String = {
-        let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.absoluteString
-        return documentPath.path
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.absoluteString
     }()
 
     var travels: [Travel]
