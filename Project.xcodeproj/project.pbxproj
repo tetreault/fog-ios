@@ -31,6 +31,11 @@
 		9F1F5B1E1DAFAF5F00636502 /* SweetUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F1F5B211DAFB05700636502 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B201DAFB05700636502 /* MapKit.framework */; };
 		9F1F5B231DB1140E00636502 /* FogLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F5B221DB1140E00636502 /* FogLayer.swift */; };
+		9F7F11D31DB4C81C00B322F5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D21DB4C81C00B322F5 /* CFNetwork.framework */; };
+		9F7F11D51DB4C82000B322F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */; };
+		9F7F11D71DB4C82400B322F5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D61DB4C82400B322F5 /* CoreImage.framework */; };
+		9F7F11D81DB4C8D500B322F5 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11CF1DB4C80A00B322F5 /* Reveal.framework */; };
+		9F950A3E1DB4CF9600D394D0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F950A3D1DB4CF9600D394D0 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +78,11 @@
 		9F1F5B111DAFAF4600636502 /* SweetUIKit.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SweetUIKit.framework.dSYM; sourceTree = "<group>"; };
 		9F1F5B201DAFB05700636502 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9F1F5B221DB1140E00636502 /* FogLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogLayer.swift; sourceTree = "<group>"; };
+		9F7F11CF1DB4C80A00B322F5 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		9F7F11D21DB4C81C00B322F5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		9F7F11D61DB4C82400B322F5 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		9F950A3D1DB4CF9600D394D0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +90,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F950A3E1DB4CF9600D394D0 /* libz.tbd in Frameworks */,
+				9F7F11D71DB4C82400B322F5 /* CoreImage.framework in Frameworks */,
+				9F7F11D51DB4C82000B322F5 /* QuartzCore.framework in Frameworks */,
+				9F7F11D31DB4C81C00B322F5 /* CFNetwork.framework in Frameworks */,
 				9F1F5B211DAFB05700636502 /* MapKit.framework in Frameworks */,
 				9F1F5B141DAFAF4600636502 /* SweetFoundation.framework in Frameworks */,
+				9F7F11D81DB4C8D500B322F5 /* Reveal.framework in Frameworks */,
 				9F1F5B121DAFAF4600636502 /* Networking.framework in Frameworks */,
 				9F1F5B181DAFAF4600636502 /* SweetUIKit.framework in Frameworks */,
 				9F1F5B161DAFAF4600636502 /* SweetSwift.framework in Frameworks */,
@@ -194,6 +209,7 @@
 		9F15583E1DAFAC0F00855858 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				9F7F11CF1DB4C80A00B322F5 /* Reveal.framework */,
 				9F1F5B0A1DAFAF4600636502 /* Networking.framework */,
 				9F1F5B0B1DAFAF4600636502 /* Networking.framework.dSYM */,
 				9F1F5B0C1DAFAF4600636502 /* SweetFoundation.framework */,
@@ -209,6 +225,10 @@
 		9F1F5B1F1DAFB05700636502 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F950A3D1DB4CF9600D394D0 /* libz.tbd */,
+				9F7F11D61DB4C82400B322F5 /* CoreImage.framework */,
+				9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */,
+				9F7F11D21DB4C81C00B322F5 /* CFNetwork.framework */,
 				9F1F5B201DAFB05700636502 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -390,7 +410,6 @@
 		146E27971BCD51C800959BBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 29X3GG489T;
@@ -402,6 +421,7 @@
 				INFOPLIST_FILE = iOS/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demoapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -411,7 +431,6 @@
 		146E27981BCD51C800959BBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 29X3GG489T;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -422,6 +441,7 @@
 				INFOPLIST_FILE = iOS/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demoapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
