@@ -198,8 +198,8 @@ class MapController: UIViewController {
         try! self.realm.write {
             self.realm.deleteAll()
             for travel in self.history.travels {
+                print("Persisting \(travel.positions.count) positions.")
                 for position in travel.positions {
-                    print("Persisting \(travel.positions.count) positions.")
                     self.realm.add(position)
                 }
             }
