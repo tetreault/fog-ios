@@ -25,7 +25,9 @@ class MapController: UIViewController {
         let history = GPSHistory()
         history.delegate = self
         var positions = Set<Position>(self.realm.objects(Position.self))
+
         print("Retrieving \(positions.count) positions.")
+
         let travel = Travel(with: positions)
 
         history.travels.append(travel)
@@ -38,6 +40,7 @@ class MapController: UIViewController {
         manager.delegate = self
         manager.requestAlwaysAuthorization()
         manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        manager.pausesLocationUpdatesAutomatically = false
 
         return manager
     }()
@@ -97,8 +100,11 @@ class MapController: UIViewController {
 //            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.733256), longitude: CLLocationDegrees(7.097723)),
 //            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734176), longitude: CLLocationDegrees(7.098603)),
 //        ]
-//        let line1 = MKPolyline(coordinates: points, count: points.count)
 //        let line2 = MKPolyline(coordinates: points2, count: points2.count)
+
+        let points = self.history.travels.first!.coordinates
+        let line = MKPolyline(coordinates: points, count: points.count)
+        self.mapView.add(line)
 
         var circles = [MKCircle]()
 
@@ -196,13 +202,18 @@ class MapController: UIViewController {
 
     func synchronize() {
         try! self.realm.write {
-            self.realm.deleteAll()
+            var oldPositions = Set<Position>(self.realm.objects(Position.self))
+
             for travel in self.history.travels {
                 print("Persisting \(travel.positions.count) positions.")
+                oldPositions.subtract(travel.positions)
                 for position in travel.positions {
                     self.realm.add(position)
                 }
             }
+
+            print("Removing outdated: \(oldPositions.count).")
+            self.realm.delete(oldPositions)
         }
     }
 }
@@ -230,18 +241,25 @@ extension MapController: MKMapViewDelegate {
         self.isTrackingUser = !self.mapViewRegionDidChangeFromUserInteraction()
     }
 
-//    // Uncomment to draw paths for debugging
-//        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//            if let overlay = overlay as? MKPolyline {
-//                let lineRenderer = MKPolylineRenderer(polyline: overlay)
-//                lineRenderer.lineWidth = 20
-//                lineRenderer.strokeColor = .magenta
-//    
-//                return lineRenderer
-//            }
-//    
-//            return MKOverlayRenderer(overlay: overlay)
+    // Uncomment to draw paths for debugging
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let overlay = overlay as? MKPolyline {
+            let lineRenderer = MKPolylineRenderer(polyline: overlay)
+            lineRenderer.lineWidth = 20
+            lineRenderer.strokeColor = .magenta
+
+            return lineRenderer
+        } 
+//        if let overlay = overlay as? MKCircle {
+//            let circleRenderer = MKCircleRenderer(circle: overlay)
+//            circleRenderer.fillColor = .red
+//            circleRenderer.strokeColor = .magenta
+//
+//            return circleRenderer
 //        }
+
+        return MKOverlayRenderer(overlay: overlay)
+    }
 }
 
 extension MapController: GPSHistoryDelegate {

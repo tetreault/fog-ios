@@ -32,6 +32,7 @@
 		9F7F11D51DB4C82000B322F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */; };
 		9F7F11D71DB4C82400B322F5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D61DB4C82400B322F5 /* CoreImage.framework */; };
 		9F7F11D81DB4C8D500B322F5 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11CF1DB4C80A00B322F5 /* Reveal.framework */; };
+		9F91E6D31DB535BF00FE220F /* location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9F91E6D21DB535BF00FE220F /* location.gpx */; };
 		9F950A3E1DB4CF9600D394D0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F950A3D1DB4CF9600D394D0 /* libz.tbd */; };
 		9FF0AADD1DB4D8F900AAE5A5 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF0AAD91DB4D8F900AAE5A5 /* Realm.framework */; };
 		9FF0AADE1DB4D8F900AAE5A5 /* Realm.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0AADA1DB4D8F900AAE5A5 /* Realm.framework.dSYM */; };
@@ -93,6 +94,7 @@
 		9F7F11D21DB4C81C00B322F5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9F7F11D61DB4C82400B322F5 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		9F91E6D21DB535BF00FE220F /* location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = location.gpx; path = ../../../Desktop/location.gpx; sourceTree = "<group>"; };
 		9F950A3D1DB4CF9600D394D0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9FF0AAD91DB4D8F900AAE5A5 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		9FF0AADA1DB4D8F900AAE5A5 /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Realm.framework.dSYM; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		147A139B1B92B9E300E52F9C = {
 			isa = PBXGroup;
 			children = (
+				9F91E6D21DB535BF00FE220F /* location.gpx */,
 				141A6FD31BDE2DAB00CB6E82 /* Library */,
 				146E278A1BCD51C800959BBA /* iOS */,
 				1483128A1B92C11500266943 /* Tests */,
@@ -349,6 +352,7 @@
 				146E27AA1BCD51F200959BBA /* Images.xcassets in Resources */,
 				9F1F5B131DAFAF4600636502 /* Networking.framework.dSYM in Resources */,
 				9FF0AADE1DB4D8F900AAE5A5 /* Realm.framework.dSYM in Resources */,
+				9F91E6D31DB535BF00FE220F /* location.gpx in Resources */,
 				9F1F5B171DAFAF4600636502 /* SweetSwift.framework.dSYM in Resources */,
 				9F1F5B191DAFAF4600636502 /* SweetUIKit.framework.dSYM in Resources */,
 				9FF0AAE01DB4D8F900AAE5A5 /* RealmSwift.framework.dSYM in Resources */,

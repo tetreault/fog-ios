@@ -29,7 +29,7 @@ class Travel {
         }
     }
 
-    fileprivate var coordinates: [CLLocationCoordinate2D] {
+    var coordinates: [CLLocationCoordinate2D] {
         var coordinates = [CLLocationCoordinate2D]()
         for point in self.positions {
             coordinates.append(point.coordinates)
@@ -39,8 +39,8 @@ class Travel {
     }
 
     func update(with coordinate: CLLocationCoordinate2D) {
-        if self.coordinates.count > 10 {
-            var coordinates = SwiftSimplify.simplify(self.coordinates)
+        if self.coordinates.count > 20 {
+            var coordinates = SwiftSimplify.simplify(self.coordinates, tolerance: 0.5)
             coordinates.append(coordinate)
 
             var positions = Set<Position>()
@@ -51,15 +51,16 @@ class Travel {
 
                 positions.insert(position)
             }
-            
+            print("Simplified from \(self.coordinates.count) points down to \(positions.count).")
+
             self.positions = positions
         } else {
             let position = Position()
             position.longitude = coordinate.longitude
             position.latitude = coordinate.latitude
-            
+
             self.positions.insert(position)
-        }
+         }
     }
 
     init(with positions: Set<Position> = []) {
