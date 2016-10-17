@@ -40,7 +40,7 @@ class Travel {
 
     func update(with coordinate: CLLocationCoordinate2D) {
         if self.coordinates.count > 10 {
-            var coordinates = SwiftSimplify.simplify(self.coordinates, tolerance: 20)
+            var coordinates = SwiftSimplify.simplify(self.coordinates)
             coordinates.append(coordinate)
 
             var positions = Set<Position>()
