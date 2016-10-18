@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import MapKit
 import Realm
 import RealmSwift
 
@@ -10,18 +11,24 @@ protocol GPSHistoryDelegate: class {
 class Position: Object {
     dynamic var latitude: CLLocationDegrees = 0
     dynamic var longitude: CLLocationDegrees = 0
+    dynamic var travelID: String = UUID().uuidString
 
-    var coordinates: CLLocationCoordinate2D {
+    var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }
 
     override var hashValue: Int {
         return (self.latitude + self.longitude).hashValue
     }
+
+    open override class func indexedProperties() -> [String] {
+        return ["travelID"]
+    }
 }
 
 class Travel {
     fileprivate var history: GPSHistory?
+    var travelID: String
 
     var positions = Set<Position>() {
         didSet {
@@ -31,40 +38,46 @@ class Travel {
 
     var coordinates: [CLLocationCoordinate2D] {
         var coordinates = [CLLocationCoordinate2D]()
-        for point in self.positions {
-            coordinates.append(point.coordinates)
+        for position in self.positions {
+            coordinates.append(position.coordinate)
         }
 
         return coordinates
     }
 
-    func update(with coordinate: CLLocationCoordinate2D) {
-        if self.coordinates.count > 20 {
-            var coordinates = SwiftSimplify.simplify(self.coordinates, tolerance: 0.5)
-            coordinates.append(coordinate)
-
-            var positions = Set<Position>()
-            for coordinate in coordinates {
-                let position = Position()
-                position.longitude = coordinate.longitude
-                position.latitude = coordinate.latitude
-
-                positions.insert(position)
-            }
-            print("Simplified from \(self.coordinates.count) points down to \(positions.count).")
-
-            self.positions = positions
-        } else {
-            let position = Position()
-            position.longitude = coordinate.longitude
-            position.latitude = coordinate.latitude
-
-            self.positions.insert(position)
-         }
+    func simplify() {
+//        guard self.positions.count > 2 else { return }        
+//        let polygon = MKPolygon(coordinates: self.coordinates, count: self.positions.count)
+//        dump(polygon)
+//        var positions = Set<Position>()
+//
+//        for coordinate in coordinates {
+//            let position = Position()
+//            position.longitude = coordinate.longitude
+//            position.latitude = coordinate.latitude
+//            position.travelID = self.travelID
+//
+//            positions.insert(position)
+//        }
+//        print("Simplified from \(self.coordinates.count) points down to \(positions.count).")
+//
+//        self.positions = positions
     }
 
-    init(with positions: Set<Position> = []) {
+    func update(with coordinate: CLLocationCoordinate2D) {
+        let position = Position()
+        position.longitude = coordinate.longitude
+        position.latitude = coordinate.latitude
+        position.travelID = self.travelID
+
+        self.positions.insert(position)
+
+        self.simplify()
+    }
+
+    init(travelID: String? = nil, positions: Set<Position> = []) {
         self.positions = positions
+        self.travelID = travelID ?? UUID().uuidString
     }
 }
 
@@ -91,5 +104,15 @@ class GPSHistory {
 
     fileprivate func travelDidChange(_ travel: Travel) {
         self.delegate?.historyDidChange(self)
+    }
+
+    func travel(for key: String) -> Travel? {
+        for travel in self.travels {
+            if travel.travelID == key {
+                return travel
+            }
+        }
+
+        return nil
     }
 }

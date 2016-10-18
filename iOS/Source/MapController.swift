@@ -9,14 +9,31 @@ fileprivate let userPinReuseIdentifier = "userPin"
 class MapController: UIViewController {
     var isTrackingUser = true
 
-    var isDebuggingPositions = false
+    var isDebuggingPositions = true
 
     lazy var realm: Realm = {
+        let config = Realm.Configuration(
+            // Set the new schema version. This must be greater than the previously used
+            // version (if you've never set a schema version before, the version is 0).
+            schemaVersion: 1,
+
+            // Set the block which will be called automatically when opening a Realm with
+            // a schema version lower than the one set above
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
+        Realm.Configuration.defaultConfiguration = config
+
         let realm = try! Realm()
 
-//        try! realm.write {
-//            realm.deleteAll()
-//        }
+                 try! realm.write {
+                     realm.deleteAll()
+                 }
 
         return realm
     }()
@@ -25,10 +42,26 @@ class MapController: UIViewController {
         let history = GPSHistory()
         history.delegate = self
         var positions = Set<Position>(self.realm.objects(Position.self))
-
         print("Retrieving \(positions.count) positions.")
 
-        let travel = Travel(with: positions)
+        let travel = Travel()
+        if positions.count > 0 {
+//            var grouped = [String: [Position]]()
+//
+//            for position in positions {
+//                var group = grouped[position.travelID] ?? [Position]()
+//                group.append(position)
+//                grouped[position.travelID] = group
+//            }
+//
+//            for (key, value) in grouped {
+//                var travel = history.travel(for: key) ?? Travel(travelID: key)
+//                travel.positions.formUnion(value)
+//                history.travels.append(travel)
+//            }
+
+            travel.positions.formUnion(positions)
+        }
 
         history.travels.append(travel)
 
@@ -41,6 +74,7 @@ class MapController: UIViewController {
         manager.requestAlwaysAuthorization()
         manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         manager.pausesLocationUpdatesAutomatically = false
+        manager.allowsBackgroundLocationUpdates = true
 
         return manager
     }()
@@ -74,54 +108,12 @@ class MapController: UIViewController {
         self.mapView.fillSuperview()
         self.displayLink.add(to: RunLoop.main, forMode: .commonModes)
 
-        // Bonn office: +50.73396677,+7.09824396
-
-//        let points = [
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.733956), longitude: CLLocationDegrees(7.098214)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734176), longitude: CLLocationDegrees(7.098603)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.733649), longitude: CLLocationDegrees(7.099952)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734431), longitude: CLLocationDegrees(7.10092)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734047), longitude: CLLocationDegrees(7.101789)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.73454), longitude: CLLocationDegrees(7.102401)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734356), longitude: CLLocationDegrees(7.102975)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734258), longitude: CLLocationDegrees(7.103603)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734431), longitude: CLLocationDegrees(7.104472)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734601), longitude: CLLocationDegrees(7.104649)),
-//            ]
-//        let points2 = [
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669630), longitude: CLLocationDegrees(7.183780)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669427), longitude: CLLocationDegrees(7.182988)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669046), longitude: CLLocationDegrees(7.18346)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.66857), longitude: CLLocationDegrees(7.182409)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669116), longitude: CLLocationDegrees(7.181304)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.698243), longitude: CLLocationDegrees(7.139955)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.730091), longitude: CLLocationDegrees(7.102103)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.732501), longitude: CLLocationDegrees(7.097222)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.733256), longitude: CLLocationDegrees(7.097723)),
-//            CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734176), longitude: CLLocationDegrees(7.098603)),
-//        ]
-//        let line2 = MKPolyline(coordinates: points2, count: points2.count)
-
-        let points = self.history.travels.first!.coordinates
-        let line = MKPolyline(coordinates: points, count: points.count)
-        self.mapView.add(line)
-
-        var circles = [MKCircle]()
-
-        for travel in self.history.travels {
-            for position in travel.positions {
-                circles.append(MKCircle(center: position.coordinates, radius: CLLocationDistance(50.0)))
-            }
-        }
-
-        self.mapView.addOverlays(circles)
-
         if self.isDebuggingPositions {
             var idx = 1
             for travel in self.history.travels {
                 for position in travel.positions {
                     let pointAnnotation = MKPointAnnotation()
-                    pointAnnotation.coordinate = position.coordinates
+                    pointAnnotation.coordinate = position.coordinate
                     pointAnnotation.title = "point: \(idx)"
 
                     idx += 1
@@ -205,6 +197,11 @@ class MapController: UIViewController {
             var oldPositions = Set<Position>(self.realm.objects(Position.self))
 
             for travel in self.history.travels {
+//                for coordinate in travel.coordinates.reversed() {
+//                    let point = self.mapView.convert(coordinate, toPointTo: self.mapView)
+//                    
+//                    if MKMapRectContainsPoint(MKMapRect, MKMapPoint)
+//                }
                 print("Persisting \(travel.positions.count) positions.")
                 oldPositions.subtract(travel.positions)
                 for position in travel.positions {
@@ -241,35 +238,36 @@ extension MapController: MKMapViewDelegate {
         self.isTrackingUser = !self.mapViewRegionDidChangeFromUserInteraction()
     }
 
-    // Uncomment to draw paths for debugging
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let overlay = overlay as? MKPolyline {
-            let lineRenderer = MKPolylineRenderer(polyline: overlay)
-            lineRenderer.lineWidth = 20
-            lineRenderer.strokeColor = .magenta
-
-            return lineRenderer
-        } 
-//        if let overlay = overlay as? MKCircle {
-//            let circleRenderer = MKCircleRenderer(circle: overlay)
-//            circleRenderer.fillColor = .red
-//            circleRenderer.strokeColor = .magenta
+//    // Uncomment to draw paths for debugging
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        if let overlay = overlay as? MKPolyline {
+//            let lineRenderer = MKPolylineRenderer(polyline: overlay)
+//            lineRenderer.lineWidth = 20
+//            lineRenderer.strokeColor = .magenta
 //
-//            return circleRenderer
+//            return lineRenderer
 //        }
-
-        return MKOverlayRenderer(overlay: overlay)
-    }
+//                if let overlay = overlay as? MKCircle {
+//                    let circleRenderer = MKCircleRenderer(circle: overlay)
+//                    circleRenderer.fillColor = .red
+//                    circleRenderer.strokeColor = .magenta
+//        
+//                    return circleRenderer
+//                }
+//
+//        return MKOverlayRenderer(overlay: overlay)
+//    }
 }
 
 extension MapController: GPSHistoryDelegate {
+
     func historyDidChange(_ history: GPSHistory) {
         self.mapView.removeOverlays(self.mapView.overlays)
 
         var circles = [MKCircle]()
         for travel in self.history.travels {
             for position in travel.positions {
-                circles.append(MKCircle(center: position.coordinates, radius: CLLocationDistance(50.0)))
+                circles.append(MKCircle(center: position.coordinate, radius: CLLocationDistance(10.0)))
             }
         }
 

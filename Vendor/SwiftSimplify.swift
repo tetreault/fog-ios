@@ -38,6 +38,7 @@ func equalsPoints<T>(_ pointA: T, pointB: T) -> Bool {
     } else if let pointA = pointA as? CLLocationCoordinate2D, let pointB = pointB as? CLLocationCoordinate2D {
         return (pointA.latitude == pointB.latitude && pointA.longitude == pointB.longitude)
     }
+
     return false
 }
 
@@ -91,6 +92,7 @@ open class SwiftSimplify {
         var simplified: [T] = [points.first!]
         simplifyDPStep(points, first: 0, last: last, tolerance: tolerance, simplified: &simplified)
         simplified.append(points[last])
+
         return simplified
     }
 
@@ -98,22 +100,26 @@ open class SwiftSimplify {
         var maxSqDistance = tolerance
         var index = 0
 
-        for i in first + 1 ..< last {
-            let sqDist = getSQSegDist(point: points[i], point1: points[first], point2: points[last])
-            if sqDist > maxSqDistance {
-                index = i
-                maxSqDistance = sqDist
+        if (first + 1) < last {
+            for i in first + 1 ..< last {
+                let sqDist = getSQSegDist(point: points[i], point1: points[first], point2: points[last])
+                if sqDist > maxSqDistance {
+                    index = i
+                    maxSqDistance = sqDist
+                }
             }
-        }
 
-        if maxSqDistance > tolerance {
-            if index - first > 1 {
-                simplifyDPStep(points, first: first, last: index, tolerance: tolerance, simplified: &simplified)
+            if maxSqDistance > tolerance {
+                if index - first > 1 {
+                    simplifyDPStep(points, first: first, last: index, tolerance: tolerance, simplified: &simplified)
+                }
+                simplified.append(points[index])
+                if last - index > 1 {
+                    simplifyDPStep(points, first: index, last: last, tolerance: tolerance, simplified: &simplified)
+                }
             }
-            simplified.append(points[index])
-            if last - index > 1 {
-                simplifyDPStep(points, first: index, last: last, tolerance: tolerance, simplified: &simplified)
-            }
+        } else {
+            print("Skipping simplification DP step. Not enough points left.")
         }
     }
 
@@ -159,10 +165,12 @@ open class SwiftSimplify {
         if let pointA = pointA as? CGPoint, let pointB = pointB as? CGPoint {
             let dx = pointA.x - pointB.x
             let dy = pointA.y - pointB.y
+
             return Float((dx * dx) + (dy * dy))
         } else if let pointA = pointA as? CLLocationCoordinate2D, let pointB = pointB as? CLLocationCoordinate2D {
             let dx = pointA.latitude - pointB.latitude
             let dy = pointA.longitude - pointB.longitude
+
             return Float((dx * dx) + (dy * dy))
         } else {
             return 0.0
