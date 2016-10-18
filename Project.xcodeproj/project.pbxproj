@@ -15,16 +15,17 @@
 		146E27AC1BCD51F200959BBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146E27A41BCD51F200959BBA /* AppDelegate.swift */; };
 		146E27AD1BCD51F200959BBA /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146E27A51BCD51F200959BBA /* MapController.swift */; };
 		1483128E1B92C11500266943 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1483128D1B92C11500266943 /* Tests.swift */; };
-		9F1F5B141DAFAF4600636502 /* SweetFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0C1DAFAF4600636502 /* SweetFoundation.framework */; };
-		9F1F5B151DAFAF4600636502 /* SweetFoundation.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F5B0D1DAFAF4600636502 /* SweetFoundation.framework.dSYM */; };
-		9F1F5B161DAFAF4600636502 /* SweetSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0E1DAFAF4600636502 /* SweetSwift.framework */; };
-		9F1F5B171DAFAF4600636502 /* SweetSwift.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F5B0F1DAFAF4600636502 /* SweetSwift.framework.dSYM */; };
 		9F1F5B181DAFAF4600636502 /* SweetUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */; };
 		9F1F5B191DAFAF4600636502 /* SweetUIKit.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F5B111DAFAF4600636502 /* SweetUIKit.framework.dSYM */; };
 		9F1F5B211DAFB05700636502 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B201DAFB05700636502 /* MapKit.framework */; };
 		9F1F5B231DB1140E00636502 /* FogLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F5B221DB1140E00636502 /* FogLayer.swift */; };
 		9F48B4031DB4F8C100E52E26 /* SwiftSimplify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B4021DB4F8C100E52E26 /* SwiftSimplify.swift */; };
 		9F79AB9E1DB635E700873CB2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F79AB9D1DB635E700873CB2 /* CoreGraphics.framework */; };
+		9F79ABBD1DB6482C00873CB2 /* CollectionType+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABBA1DB6482C00873CB2 /* CollectionType+Sweetness.swift */; };
+		9F79ABBE1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABBB1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift */; };
+		9F79ABBF1DB6482C00873CB2 /* String+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABBC1DB6482C00873CB2 /* String+Sweetness.swift */; };
+		9F79ABC31DB6484100873CB2 /* DispatchQueue+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABC11DB6484100873CB2 /* DispatchQueue+Sweetness.swift */; };
+		9F79ABC41DB6484100873CB2 /* IndexPath+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABC21DB6484100873CB2 /* IndexPath+Sweetness.swift */; };
 		9F7F11D31DB4C81C00B322F5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D21DB4C81C00B322F5 /* CFNetwork.framework */; };
 		9F7F11D51DB4C82000B322F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */; };
 		9F7F11D71DB4C82400B322F5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D61DB4C82400B322F5 /* CoreImage.framework */; };
@@ -38,8 +39,6 @@
 		9FF0AAE31DB4D95900AAE5A5 /* GPSHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0AAE21DB4D95900AAE5A5 /* GPSHistory.swift */; };
 		9FF0AAE51DB4DA3900AAE5A5 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF0AAD91DB4D8F900AAE5A5 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9FF0AAE61DB4DA3900AAE5A5 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF0AADB1DB4D8F900AAE5A5 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9FF0AAE91DB4DA3900AAE5A5 /* SweetFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0C1DAFAF4600636502 /* SweetFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9FF0AAEA1DB4DA3900AAE5A5 /* SweetSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0E1DAFAF4600636502 /* SweetSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9FF0AAEB1DB4DA3900AAE5A5 /* SweetUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -52,8 +51,6 @@
 			files = (
 				9FF0AAE51DB4DA3900AAE5A5 /* Realm.framework in Embed Frameworks */,
 				9FF0AAE61DB4DA3900AAE5A5 /* RealmSwift.framework in Embed Frameworks */,
-				9FF0AAE91DB4DA3900AAE5A5 /* SweetFoundation.framework in Embed Frameworks */,
-				9FF0AAEA1DB4DA3900AAE5A5 /* SweetSwift.framework in Embed Frameworks */,
 				9FF0AAEB1DB4DA3900AAE5A5 /* SweetUIKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -73,16 +70,17 @@
 		148312891B92C11500266943 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1483128C1B92C11500266943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1483128D1B92C11500266943 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		9F1F5B0C1DAFAF4600636502 /* SweetFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SweetFoundation.framework; sourceTree = "<group>"; };
-		9F1F5B0D1DAFAF4600636502 /* SweetFoundation.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SweetFoundation.framework.dSYM; sourceTree = "<group>"; };
-		9F1F5B0E1DAFAF4600636502 /* SweetSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SweetSwift.framework; sourceTree = "<group>"; };
-		9F1F5B0F1DAFAF4600636502 /* SweetSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SweetSwift.framework.dSYM; sourceTree = "<group>"; };
 		9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SweetUIKit.framework; sourceTree = "<group>"; };
 		9F1F5B111DAFAF4600636502 /* SweetUIKit.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SweetUIKit.framework.dSYM; sourceTree = "<group>"; };
 		9F1F5B201DAFB05700636502 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9F1F5B221DB1140E00636502 /* FogLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogLayer.swift; sourceTree = "<group>"; };
 		9F48B4021DB4F8C100E52E26 /* SwiftSimplify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSimplify.swift; sourceTree = "<group>"; };
 		9F79AB9D1DB635E700873CB2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9F79ABBA1DB6482C00873CB2 /* CollectionType+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+Sweetness.swift"; sourceTree = "<group>"; };
+		9F79ABBB1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+Sweetness.swift"; sourceTree = "<group>"; };
+		9F79ABBC1DB6482C00873CB2 /* String+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Sweetness.swift"; sourceTree = "<group>"; };
+		9F79ABC11DB6484100873CB2 /* DispatchQueue+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Sweetness.swift"; sourceTree = "<group>"; };
+		9F79ABC21DB6484100873CB2 /* IndexPath+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexPath+Sweetness.swift"; sourceTree = "<group>"; };
 		9F7F11CF1DB4C80A00B322F5 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		9F7F11D21DB4C81C00B322F5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -108,10 +106,8 @@
 				9F7F11D51DB4C82000B322F5 /* QuartzCore.framework in Frameworks */,
 				9F7F11D31DB4C81C00B322F5 /* CFNetwork.framework in Frameworks */,
 				9F1F5B211DAFB05700636502 /* MapKit.framework in Frameworks */,
-				9F1F5B141DAFAF4600636502 /* SweetFoundation.framework in Frameworks */,
 				9F7F11D81DB4C8D500B322F5 /* Reveal.framework in Frameworks */,
 				9F1F5B181DAFAF4600636502 /* SweetUIKit.framework in Frameworks */,
-				9F1F5B161DAFAF4600636502 /* SweetSwift.framework in Frameworks */,
 				9FF0AADD1DB4D8F900AAE5A5 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,15 +219,13 @@
 		9F15583E1DAFAC0F00855858 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				9F79ABC01DB6483000873CB2 /* SweetFoundation */,
+				9F79ABB91DB6481D00873CB2 /* SweetSwift */,
 				9FF0AAD91DB4D8F900AAE5A5 /* Realm.framework */,
 				9FF0AADA1DB4D8F900AAE5A5 /* Realm.framework.dSYM */,
 				9FF0AADB1DB4D8F900AAE5A5 /* RealmSwift.framework */,
 				9FF0AADC1DB4D8F900AAE5A5 /* RealmSwift.framework.dSYM */,
 				9F7F11CF1DB4C80A00B322F5 /* Reveal.framework */,
-				9F1F5B0C1DAFAF4600636502 /* SweetFoundation.framework */,
-				9F1F5B0D1DAFAF4600636502 /* SweetFoundation.framework.dSYM */,
-				9F1F5B0E1DAFAF4600636502 /* SweetSwift.framework */,
-				9F1F5B0F1DAFAF4600636502 /* SweetSwift.framework.dSYM */,
 				9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */,
 				9F1F5B111DAFAF4600636502 /* SweetUIKit.framework.dSYM */,
 				9F48B4021DB4F8C100E52E26 /* SwiftSimplify.swift */,
@@ -250,6 +244,25 @@
 				9F1F5B201DAFB05700636502 /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9F79ABB91DB6481D00873CB2 /* SweetSwift */ = {
+			isa = PBXGroup;
+			children = (
+				9F79ABBA1DB6482C00873CB2 /* CollectionType+Sweetness.swift */,
+				9F79ABBB1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift */,
+				9F79ABBC1DB6482C00873CB2 /* String+Sweetness.swift */,
+			);
+			name = SweetSwift;
+			sourceTree = "<group>";
+		};
+		9F79ABC01DB6483000873CB2 /* SweetFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				9F79ABC11DB6484100873CB2 /* DispatchQueue+Sweetness.swift */,
+				9F79ABC21DB6484100873CB2 /* IndexPath+Sweetness.swift */,
+			);
+			name = SweetFoundation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,11 +352,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F1F5B151DAFAF4600636502 /* SweetFoundation.framework.dSYM in Resources */,
 				146E27AA1BCD51F200959BBA /* Images.xcassets in Resources */,
 				9FF0AADE1DB4D8F900AAE5A5 /* Realm.framework.dSYM in Resources */,
 				9F91E6D31DB535BF00FE220F /* location.gpx in Resources */,
-				9F1F5B171DAFAF4600636502 /* SweetSwift.framework.dSYM in Resources */,
 				9F1F5B191DAFAF4600636502 /* SweetUIKit.framework.dSYM in Resources */,
 				9FF0AAE01DB4D8F900AAE5A5 /* RealmSwift.framework.dSYM in Resources */,
 				146E27A91BCD51F200959BBA /* LaunchScreen.xib in Resources */,
@@ -397,6 +408,11 @@
 				9F48B4031DB4F8C100E52E26 /* SwiftSimplify.swift in Sources */,
 				146E27AC1BCD51F200959BBA /* AppDelegate.swift in Sources */,
 				14425E551C97078A00F0FAD1 /* Theme+Font.swift in Sources */,
+				9F79ABBE1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift in Sources */,
+				9F79ABC31DB6484100873CB2 /* DispatchQueue+Sweetness.swift in Sources */,
+				9F79ABC41DB6484100873CB2 /* IndexPath+Sweetness.swift in Sources */,
+				9F79ABBF1DB6482C00873CB2 /* String+Sweetness.swift in Sources */,
+				9F79ABBD1DB6482C00873CB2 /* CollectionType+Sweetness.swift in Sources */,
 				9FF0AAE31DB4D95900AAE5A5 /* GPSHistory.swift in Sources */,
 				9F1F5B231DB1140E00636502 /* FogLayer.swift in Sources */,
 				146E27AD1BCD51F200959BBA /* MapController.swift in Sources */,

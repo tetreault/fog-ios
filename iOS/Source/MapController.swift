@@ -9,7 +9,7 @@ fileprivate let userPinReuseIdentifier = "userPin"
 class MapController: UIViewController {
     var isTrackingUser = true
 
-    var isDebuggingPositions = true
+    var isDebuggingPositions = false
 
     lazy var realm: Realm = {
         let config = Realm.Configuration(
@@ -30,10 +30,6 @@ class MapController: UIViewController {
         Realm.Configuration.defaultConfiguration = config
 
         let realm = try! Realm()
-
-                 try! realm.write {
-                     realm.deleteAll()
-                 }
 
         return realm
     }()
@@ -194,23 +190,13 @@ class MapController: UIViewController {
 
     func synchronize() {
         try! self.realm.write {
-            var oldPositions = Set<Position>(self.realm.objects(Position.self))
-
             for travel in self.history.travels {
-//                for coordinate in travel.coordinates.reversed() {
-//                    let point = self.mapView.convert(coordinate, toPointTo: self.mapView)
-//                    
-//                    if MKMapRectContainsPoint(MKMapRect, MKMapPoint)
-//                }
+                travel.simplify()
                 print("Persisting \(travel.positions.count) positions.")
-                oldPositions.subtract(travel.positions)
                 for position in travel.positions {
                     self.realm.add(position)
                 }
             }
-
-            print("Removing outdated: \(oldPositions.count).")
-            self.realm.delete(oldPositions)
         }
     }
 }
@@ -219,10 +205,14 @@ extension MapController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        guard location.horizontalAccuracy <= 65.0 else { return }
+        guard location.horizontalAccuracy <= 65.0 else {
+            print("Too innacurate to be saved.")
+            
+            return
+        }
 
         if let travel = self.history.travels.last {
-            travel.update(with: location.coordinate)
+            travel.update(with: location)
         }
 
         if self.isTrackingUser {
@@ -267,7 +257,7 @@ extension MapController: GPSHistoryDelegate {
         var circles = [MKCircle]()
         for travel in self.history.travels {
             for position in travel.positions {
-                circles.append(MKCircle(center: position.coordinate, radius: CLLocationDistance(10.0)))
+                circles.append(MKCircle(center: position.coordinate, radius: CLLocationDistance(15.0)))
             }
         }
 

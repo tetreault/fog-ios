@@ -4,14 +4,31 @@ import MapKit
 import Realm
 import RealmSwift
 
+fileprivate let distanceOffset = CLLocationDistance(20)
+
 protocol GPSHistoryDelegate: class {
     func historyDidChange(_ history: GPSHistory)
 }
 
+extension CLLocation {
+    convenience init(position: Position) {
+        let coordinate = CLLocationCoordinate2D(latitude: position.latitude, longitude: position.longitude)
+        self.init(coordinate: coordinate, altitude: position.altitude, horizontalAccuracy: position.horizontalAccuracy, verticalAccuracy: position.verticalAccuracy, course: position.direction, speed: position.speed, timestamp: position.timestamp)
+    }
+}
+
 class Position: Object {
+    dynamic var travelID: String = UUID().uuidString
+
     dynamic var latitude: CLLocationDegrees = 0
     dynamic var longitude: CLLocationDegrees = 0
-    dynamic var travelID: String = UUID().uuidString
+
+    dynamic var altitude: CLLocationDistance = 0
+    dynamic var horizontalAccuracy: CLLocationAccuracy = 0
+    dynamic var verticalAccuracy: CLLocationAccuracy = 0
+    dynamic var direction: CLLocationDirection = 0
+    dynamic var speed: CLLocationSpeed = 0
+    dynamic var timestamp: Date = Date()
 
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
@@ -24,11 +41,27 @@ class Position: Object {
     open override class func indexedProperties() -> [String] {
         return ["travelID"]
     }
+
+    convenience init(location: CLLocation) {
+        self.init()
+
+        self.latitude = location.coordinate.latitude
+        self.longitude = location.coordinate.longitude
+
+        self.altitude = location.altitude
+        self.horizontalAccuracy = location.horizontalAccuracy
+        self.verticalAccuracy = location.verticalAccuracy
+        self.direction = location.course
+        self.speed = location.speed
+        self.timestamp = location.timestamp
+    }
 }
 
 class Travel {
     fileprivate var history: GPSHistory?
     var travelID: String
+
+    var ignoredCount: Int = 0
 
     var positions = Set<Position>() {
         didSet {
@@ -46,32 +79,32 @@ class Travel {
     }
 
     func simplify() {
-//        guard self.positions.count > 2 else { return }        
-//        let polygon = MKPolygon(coordinates: self.coordinates, count: self.positions.count)
-//        dump(polygon)
-//        var positions = Set<Position>()
-//
-//        for coordinate in coordinates {
-//            let position = Position()
-//            position.longitude = coordinate.longitude
-//            position.latitude = coordinate.latitude
-//            position.travelID = self.travelID
-//
-//            positions.insert(position)
-//        }
-//        print("Simplified from \(self.coordinates.count) points down to \(positions.count).")
-//
-//        self.positions = positions
+        guard self.positions.count > 2 else { return }
+
+        var removed = Set<Position>()
+        let currentPositions = Array(self.positions)
+
+        for (position, comparison) in currentPositions.enumeratedWithCurrentAndNext() {
+                let currentLocation = CLLocation(position: position)
+                let nextLocation = CLLocation(position: comparison)
+
+                let distance = nextLocation.distance(from: currentLocation)
+
+                if distance < distanceOffset {
+                        removed.insert(position)
+                }
+        }
+
+        self.positions = self.positions.subtracting(removed)
+        print("Simplified from \(currentPositions.count) to \(self.positions.count). Removed: \(removed.count).")
     }
 
-    func update(with coordinate: CLLocationCoordinate2D) {
-        let position = Position()
-        position.longitude = coordinate.longitude
-        position.latitude = coordinate.latitude
+    func update(with location: CLLocation) {
+        let position = Position(location: location)
         position.travelID = self.travelID
 
         self.positions.insert(position)
-
+        
         self.simplify()
     }
 
