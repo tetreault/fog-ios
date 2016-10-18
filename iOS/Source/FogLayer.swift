@@ -31,7 +31,7 @@ class FogLayer: CALayer {
         self.path?.lineWidth = 14
         self.path?.stroke()
         self.path?.fill()
-        
+
         UIGraphicsPopContext()
     }
 }
