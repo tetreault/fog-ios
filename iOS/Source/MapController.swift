@@ -9,7 +9,7 @@ fileprivate let userPinReuseIdentifier = "userPin"
 class MapController: UIViewController {
     var isTrackingUser = true
 
-    var isDebuggingPositions = true
+    var isDebuggingPositions = false
 
     lazy var realm: Realm = {
         let config = Realm.Configuration(
@@ -265,16 +265,7 @@ extension MapController: MKMapViewDelegate {
         let latitudeDelta = mapView.region.span.latitudeDelta
         let deltaMeters = latitudeDelta * 40008000 / 360
 
-        var size = 20
-        if deltaMeters > 150 && deltaMeters <= 600 {
-            size = 30
-        } else if deltaMeters > 600 && deltaMeters <= 1000 {
-            size = 40
-        } else if deltaMeters > 1000 && deltaMeters <= 2000 {
-            size = 60
-        } else if deltaMeters > 2000 {
-            size = 80
-        }
+        let size = Converter.boxSize(forMeters: deltaMeters)
 
         print("Delta: \(deltaMeters)m. Size: \(size).")
 
@@ -345,7 +336,10 @@ extension MapController: GPSHistoryDelegate {
         var circles = [MKCircle]()
         for travel in self.history.travels {
             for position in travel.positions {
-                circles.append(MKCircle(center: position.coordinate, radius: CLLocationDistance(15.0)))
+                let latitudeDelta = mapView.region.span.latitudeDelta
+                let deltaMeters = latitudeDelta * 40008000 / 360
+                let radius = Converter.radiusSize(forMeters: deltaMeters)
+                circles.append(MKCircle(center: position.coordinate, radius: CLLocationDistance(radius)))
             }
         }
 
