@@ -244,6 +244,78 @@ extension MapController: MKMapViewDelegate {
         self.isTrackingUser = !self.mapViewRegionDidChangeFromUserInteraction()
     }
 
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let tree = QuadTree<Position>(frame: self.mapView.bounds)
+        let travel = self.history.travels.last!
+        travel.positions = Set<Position>(self.realm.objects(Position.self))
+
+//        let latitudeDegrees = mapView.region.center.latitude
+//        let latitudeRadians = latitudeDegrees * M_PI / 180.0
+//        let longitudeDelta = mapView.region.span.longitudeDelta
+
+        let currentPositions = Array(travel.positions).sorted { (a, b) -> Bool in
+            return a.timestamp.compare(b.timestamp) == .orderedAscending
+        }
+
+        for position in currentPositions {
+            let point = self.mapView.convert(position.coordinate, toPointTo: self.mapView)
+            tree.insertObject(position, atPoint: point)
+        }
+
+        let latitudeDelta = mapView.region.span.latitudeDelta
+        let deltaMeters = latitudeDelta * 40008000 / 360
+
+        var size = 20
+        if deltaMeters > 150 && deltaMeters <= 600 {
+            size = 30
+        } else if deltaMeters > 600 && deltaMeters <= 1000 {
+            size = 40
+        } else if deltaMeters > 1000 && deltaMeters <= 2000 {
+            size = 60
+        } else if deltaMeters > 2000 {
+            size = 80
+        }
+
+        print("Delta: \(deltaMeters)m. Size: \(size).")
+
+        let widthCount = Int(ceil(self.mapView.frame.width / CGFloat(size)))
+        let heightCount = Int(ceil(self.mapView.frame.height / CGFloat(size)))
+
+        if self.isDebuggingPositions {
+            for layer in self.mapView.layer.sublayers! {
+                if layer.name == "grid" {
+                    layer.removeFromSuperlayer()
+                }
+            }
+        }
+
+        for i in 0..<widthCount {
+            for j in 0..<heightCount {
+                let rect = CGRect(x: i * size, y: j * size, width: size, height: size)
+
+                if self.isDebuggingPositions {
+                    let layer = CALayer()
+                    layer.name = "grid"
+                    layer.borderColor = UIColor.red.cgColor
+                    layer.borderWidth = 0.5
+                    layer.frame = rect
+                    self.mapView.layer.addSublayer(layer)
+                }
+
+                let positions = tree.queryRegion(rect)
+                if positions.count > 2 {
+                    let _ = positions.map { p in travel.positions.remove(p) }
+
+                    let sorted = positions.sorted { (a, b) -> Bool in
+                        return a.horizontalAccuracy > b.horizontalAccuracy
+                    }
+
+                    travel.positions.insert(sorted.first!)
+                }
+            }
+        }
+    }
+
 //    // Uncomment to draw paths for debugging
 //    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 //        if let overlay = overlay as? MKPolyline {

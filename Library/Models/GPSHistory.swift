@@ -80,6 +80,7 @@ class Travel {
     }
 
     func simplify() {
+        return
         guard self.positions.count > 2 else { return }
 
         var removed = Set<Position>()
