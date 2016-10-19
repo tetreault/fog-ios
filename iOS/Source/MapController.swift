@@ -302,30 +302,11 @@ extension MapController: MKMapViewDelegate {
                     }
 
                     travel.positions.insert(sorted.first!)
+                    travel.positions.insert(sorted[1])
                 }
             }
         }
     }
-
-//    // Uncomment to draw paths for debugging
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        if let overlay = overlay as? MKPolyline {
-//            let lineRenderer = MKPolylineRenderer(polyline: overlay)
-//            lineRenderer.lineWidth = 20
-//            lineRenderer.strokeColor = .magenta
-//
-//            return lineRenderer
-//        }
-//                if let overlay = overlay as? MKCircle {
-//                    let circleRenderer = MKCircleRenderer(circle: overlay)
-//                    circleRenderer.fillColor = .red
-//                    circleRenderer.strokeColor = .magenta
-//        
-//                    return circleRenderer
-//                }
-//
-//        return MKOverlayRenderer(overlay: overlay)
-//    }
 }
 
 extension MapController: GPSHistoryDelegate {

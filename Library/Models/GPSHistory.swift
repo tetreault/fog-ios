@@ -20,15 +20,15 @@ extension CLLocation {
 
 struct Converter {
     static func boxSize(forMeters meters: Double) -> Int {
-        var size = 60
-        if meters > 150 && meters <= 600 {
-            size = 55
+        var size = 25
+        if meters > 150 && meters <= 400 {
+            size = 30
+        } else if meters > 400 && meters <= 600 {
+            size = 35
         } else if meters > 600 && meters <= 1000 {
-            size = 50
-        } else if meters > 1000 && meters <= 2000 {
-            size = 45
-        } else if meters > 2000 {
             size = 40
+        } else if meters > 1000 {
+            size = 45
         }
 
         return size
@@ -36,13 +36,13 @@ struct Converter {
 
     static func radiusSize(forMeters meters: Double) -> Int {
         var size = 25
-        if meters > 150 && meters <= 600 {
+        if meters > 150 && meters <= 400 {
             size = 30
-        } else if meters > 600 && meters <= 1000 {
+        } else if meters > 400 && meters <= 600 {
             size = 35
-        } else if meters > 1000 && meters <= 2000 {
+        } else if meters > 6000 && meters <= 1000 {
             size = 40
-        } else if meters > 2000 {
+        } else if meters > 1000 {
             size = 45
         }
 
