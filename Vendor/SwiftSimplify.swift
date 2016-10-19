@@ -44,7 +44,7 @@ func equalsPoints<T>(_ pointA: T, pointB: T) -> Bool {
 
 open class SwiftSimplify {
 
-    /** 
+    /**
      Returns an array of simplified points
 
      - parameter points:      An array of points of (maybe CGPoint or CLLocationCoordinate2D points)

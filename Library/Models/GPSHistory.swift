@@ -11,6 +11,7 @@ protocol GPSHistoryDelegate: class {
 }
 
 extension CLLocation {
+
     convenience init(position: Position) {
         let coordinate = CLLocationCoordinate2D(latitude: position.latitude, longitude: position.longitude)
         self.init(coordinate: coordinate, altitude: position.altitude, horizontalAccuracy: position.horizontalAccuracy, verticalAccuracy: position.verticalAccuracy, course: position.direction, speed: position.speed, timestamp: position.timestamp)
@@ -106,11 +107,11 @@ class Travel {
     }
 
     func update(with location: CLLocation) {
-        let position = Position(location    : location)
+        let position = Position(location: location)
         position.travelID = self.travelID
 
         self.positions.insert(position)
-        
+
         self.simplify()
     }
 

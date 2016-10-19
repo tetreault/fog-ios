@@ -26,6 +26,8 @@
 		9F48B4151DB777E000E52E26 /* clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B4121DB777E000E52E26 /* clipper.cpp */; };
 		9F48B4161DB777E000E52E26 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9F48B4141DB777E000E52E26 /* License.txt */; };
 		9F48B41A1DB7796A00E52E26 /* UIBezierPath+Clipper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B4171DB7788B00E52E26 /* UIBezierPath+Clipper.mm */; };
+		9F7670E71DB79FEB00DADD6E /* QuadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7670E61DB79FEB00DADD6E /* QuadTree.swift */; };
+		9F7670E81DB7A05200DADD6E /* QuadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7670E61DB79FEB00DADD6E /* QuadTree.swift */; };
 		9F79AB9E1DB635E700873CB2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F79AB9D1DB635E700873CB2 /* CoreGraphics.framework */; };
 		9F79ABBD1DB6482C00873CB2 /* CollectionType+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABBA1DB6482C00873CB2 /* CollectionType+Sweetness.swift */; };
 		9F79ABBE1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABBB1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift */; };
@@ -92,6 +94,7 @@
 		9F48B4141DB777E000E52E26 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
 		9F48B4171DB7788B00E52E26 /* UIBezierPath+Clipper.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "UIBezierPath+Clipper.mm"; sourceTree = "<group>"; };
 		9F48B4191DB778FE00E52E26 /* UIBezierPath+Clipper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Clipper.h"; sourceTree = "<group>"; };
+		9F7670E61DB79FEB00DADD6E /* QuadTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadTree.swift; sourceTree = "<group>"; };
 		9F79AB9D1DB635E700873CB2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9F79ABBA1DB6482C00873CB2 /* CollectionType+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+Sweetness.swift"; sourceTree = "<group>"; };
 		9F79ABBB1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+Sweetness.swift"; sourceTree = "<group>"; };
@@ -227,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				9FF0AAE21DB4D95900AAE5A5 /* GPSHistory.swift */,
+				9F7670E61DB79FEB00DADD6E /* QuadTree.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -367,7 +371,7 @@
 					148312881B92C11500266943 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 29X3GG489T;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -448,6 +452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F7670E71DB79FEB00DADD6E /* QuadTree.swift in Sources */,
 				9F48B4031DB4F8C100E52E26 /* SwiftSimplify.swift in Sources */,
 				146E27AC1BCD51F200959BBA /* AppDelegate.swift in Sources */,
 				14425E551C97078A00F0FAD1 /* Theme+Font.swift in Sources */,
@@ -472,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F7670E81DB7A05200DADD6E /* QuadTree.swift in Sources */,
 				1483128E1B92C11500266943 /* Tests.swift in Sources */,
 				14425E561C97078A00F0FAD1 /* Theme+Font.swift in Sources */,
 			);
