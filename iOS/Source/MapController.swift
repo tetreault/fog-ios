@@ -9,7 +9,7 @@ fileprivate let userPinReuseIdentifier = "userPin"
 class MapController: UIViewController {
     var isTrackingUser = true
 
-    var isDebuggingPositions = false
+    var isDebuggingPositions = true
 
     lazy var realm: Realm = {
         let config = Realm.Configuration(
@@ -103,21 +103,6 @@ class MapController: UIViewController {
 
         self.mapView.fillSuperview()
         self.displayLink.add(to: RunLoop.main, forMode: .commonModes)
-
-        if self.isDebuggingPositions {
-            var idx = 1
-            for travel in self.history.travels {
-                for position in travel.positions {
-                    let pointAnnotation = MKPointAnnotation()
-                    pointAnnotation.coordinate = position.coordinate
-                    pointAnnotation.title = "point: \(idx)"
-
-                    idx += 1
-
-                    self.mapView.addAnnotation(pointAnnotation)
-                }
-            }
-        }
     }
 
     func circlePath(with overlay: MKCircle) -> UIBezierPath {
@@ -129,30 +114,30 @@ class MapController: UIViewController {
         return path
     }
 
-    func linePath(with overlay: MKPolyline) -> UIBezierPath {
-        let path = UIBezierPath()
-
-        var points = [CGPoint]()
-        for mapPoint in UnsafeBufferPointer(start: overlay.points(), count: overlay.pointCount) {
-            let coordinate = MKCoordinateForMapPoint(mapPoint)
-            let point = self.mapView.convert(coordinate, toPointTo: self.view)
-            points.append(point)
-        }
-
-        if let first = points.first {
-            path.move(to: first)
-        }
-        for point in points {
-            path.addLine(to: point)
-        }
-        for point in points.reversed() {
-            path.addLine(to: point)
-        }
-
-        path.close()
-
-        return path
-    }
+//    func linePath(with overlay: MKPolyline) -> UIBezierPath {
+//        let path = UIBezierPath()
+//
+//        var points = [CGPoint]()
+//        for mapPoint in UnsafeBufferPointer(start: overlay.points(), count: overlay.pointCount) {
+//            let coordinate = MKCoordinateForMapPoint(mapPoint)
+//            let point = self.mapView.convert(coordinate, toPointTo: self.view)
+//            points.append(point)
+//        }
+//
+//        if let first = points.first {
+//            path.move(to: first)
+//        }
+//        for point in points {
+//            path.addLine(to: point)
+//        }
+//        for point in points.reversed() {
+//            path.addLine(to: point)
+//        }
+//
+//        path.close()
+//
+//        return path
+//    }
 
     func updateDisplayLink() {
         self.fogLayer.frame = self.mapView.frame
@@ -161,18 +146,49 @@ class MapController: UIViewController {
         for overlay in self.mapView.overlays {
             if let overlay = overlay as? MKCircle {
                 path.append(self.circlePath(with: overlay))
-            } else if let overlay = overlay as? MKPolyline {
-                let linePath = self.linePath(with: overlay)
-                linePath.lineWidth = 20
-                path.append(linePath)
             }
         }
 
-        path.lineJoinStyle = .round
-        path.lineCapStyle = .round
-
         self.fogLayer.path = path
         self.fogLayer.setNeedsDisplay()
+
+        if self.isDebuggingPositions {
+            var idx = 1
+
+            for annotation in self.mapView.annotations {
+                for travel in self.history.travels {
+                    let hasAnnotation = travel.coordinates.contains { coordinate -> Bool in
+                        return coordinate.latitude == annotation.coordinate.latitude && coordinate.longitude == annotation.coordinate.longitude
+                    }
+
+                    if !hasAnnotation {
+                        self.mapView.removeAnnotation(annotation)
+                    }
+                }
+            }
+
+            for travel in self.history.travels {
+                for position in travel.positions {
+                    let pointAnnotation = MKPointAnnotation()
+                    pointAnnotation.coordinate = position.coordinate
+                    pointAnnotation.title = "point: \(idx)"
+
+                    idx += 1
+
+                    var hasAnnotation = false
+                    for annotation in self.mapView.annotations {
+                        if position.coordinate.latitude == annotation.coordinate.latitude && position.coordinate.longitude == annotation.coordinate.longitude {
+                            hasAnnotation = true
+                            break
+                        }
+                    }
+
+                    if !hasAnnotation {
+                        self.mapView.addAnnotation(pointAnnotation)
+                    }
+                }
+            }
+        }
     }
 
     func mapViewRegionDidChangeFromUserInteraction() -> Bool {

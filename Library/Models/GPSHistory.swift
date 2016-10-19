@@ -4,7 +4,7 @@ import MapKit
 import Realm
 import RealmSwift
 
-fileprivate let distanceOffset = CLLocationDistance(20)
+fileprivate let distanceOffset = CLLocationDistance(25)
 
 protocol GPSHistoryDelegate: class {
     func historyDidChange(_ history: GPSHistory)
@@ -82,17 +82,23 @@ class Travel {
         guard self.positions.count > 2 else { return }
 
         var removed = Set<Position>()
-        let currentPositions = Array(self.positions)
+        var ignored = Set<Position>()
+        let currentPositions = Array(self.positions).sorted { (a, b) -> Bool in
+            return a.timestamp.compare(b.timestamp) == .orderedAscending
+        }
 
         for (position, comparison) in currentPositions.enumeratedWithCurrentAndNext() {
-                let currentLocation = CLLocation(position: position)
-                let nextLocation = CLLocation(position: comparison)
+            if position == comparison || ignored.contains(comparison) {
+                continue
+            }
 
-                let distance = nextLocation.distance(from: currentLocation)
-
-                if distance < distanceOffset {
-                        removed.insert(position)
-                }
+            let interval = comparison.timestamp.timeIntervalSince(position.timestamp)
+            if interval < 5 && interval > 0 {
+                removed.insert(position)
+                ignored.insert(comparison)
+            } else if interval < 0 {
+                print("Something wrong!")
+            }
         }
 
         self.positions = self.positions.subtracting(removed)
@@ -100,7 +106,7 @@ class Travel {
     }
 
     func update(with location: CLLocation) {
-        let position = Position(location: location)
+        let position = Position(location    : location)
         position.travelID = self.travelID
 
         self.positions.insert(position)

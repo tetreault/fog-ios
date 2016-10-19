@@ -28,7 +28,7 @@ class FogLayer: CALayer {
         ctx.fill(self.bounds)
         ctx.setBlendMode(.clear)
 
-        self.path?.lineWidth = 14
+        self.path?.lineWidth = 2
         self.path?.stroke()
         self.path?.fill()
 

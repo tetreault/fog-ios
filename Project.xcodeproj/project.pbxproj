@@ -20,6 +20,12 @@
 		9F1F5B211DAFB05700636502 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B201DAFB05700636502 /* MapKit.framework */; };
 		9F1F5B231DB1140E00636502 /* FogLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F5B221DB1140E00636502 /* FogLayer.swift */; };
 		9F48B4031DB4F8C100E52E26 /* SwiftSimplify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B4021DB4F8C100E52E26 /* SwiftSimplify.swift */; };
+		9F48B40E1DB772B100E52E26 /* UIBezierPath-Bounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B4091DB772B100E52E26 /* UIBezierPath-Bounding.m */; };
+		9F48B40F1DB772B100E52E26 /* UIBezierPath-Fitting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B40B1DB772B100E52E26 /* UIBezierPath-Fitting.m */; };
+		9F48B4101DB772B100E52E26 /* UIBezierPath-Points.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B40D1DB772B100E52E26 /* UIBezierPath-Points.m */; };
+		9F48B4151DB777E000E52E26 /* clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B4121DB777E000E52E26 /* clipper.cpp */; };
+		9F48B4161DB777E000E52E26 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9F48B4141DB777E000E52E26 /* License.txt */; };
+		9F48B41A1DB7796A00E52E26 /* UIBezierPath+Clipper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9F48B4171DB7788B00E52E26 /* UIBezierPath+Clipper.mm */; };
 		9F79AB9E1DB635E700873CB2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F79AB9D1DB635E700873CB2 /* CoreGraphics.framework */; };
 		9F79ABBD1DB6482C00873CB2 /* CollectionType+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABBA1DB6482C00873CB2 /* CollectionType+Sweetness.swift */; };
 		9F79ABBE1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79ABBB1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift */; };
@@ -30,7 +36,6 @@
 		9F7F11D51DB4C82000B322F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */; };
 		9F7F11D71DB4C82400B322F5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D61DB4C82400B322F5 /* CoreImage.framework */; };
 		9F7F11D81DB4C8D500B322F5 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11CF1DB4C80A00B322F5 /* Reveal.framework */; };
-		9F91E6D31DB535BF00FE220F /* location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9F91E6D21DB535BF00FE220F /* location.gpx */; };
 		9F950A3E1DB4CF9600D394D0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F950A3D1DB4CF9600D394D0 /* libz.tbd */; };
 		9FF0AADD1DB4D8F900AAE5A5 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF0AAD91DB4D8F900AAE5A5 /* Realm.framework */; };
 		9FF0AADE1DB4D8F900AAE5A5 /* Realm.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0AADA1DB4D8F900AAE5A5 /* Realm.framework.dSYM */; };
@@ -75,6 +80,18 @@
 		9F1F5B201DAFB05700636502 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9F1F5B221DB1140E00636502 /* FogLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogLayer.swift; sourceTree = "<group>"; };
 		9F48B4021DB4F8C100E52E26 /* SwiftSimplify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSimplify.swift; sourceTree = "<group>"; };
+		9F48B4071DB772B100E52E26 /* iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		9F48B4081DB772B100E52E26 /* UIBezierPath-Bounding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath-Bounding.h"; sourceTree = "<group>"; };
+		9F48B4091DB772B100E52E26 /* UIBezierPath-Bounding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath-Bounding.m"; sourceTree = "<group>"; };
+		9F48B40A1DB772B100E52E26 /* UIBezierPath-Fitting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath-Fitting.h"; sourceTree = "<group>"; };
+		9F48B40B1DB772B100E52E26 /* UIBezierPath-Fitting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath-Fitting.m"; sourceTree = "<group>"; };
+		9F48B40C1DB772B100E52E26 /* UIBezierPath-Points.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath-Points.h"; sourceTree = "<group>"; };
+		9F48B40D1DB772B100E52E26 /* UIBezierPath-Points.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath-Points.m"; sourceTree = "<group>"; };
+		9F48B4121DB777E000E52E26 /* clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clipper.cpp; sourceTree = "<group>"; };
+		9F48B4131DB777E000E52E26 /* clipper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clipper.hpp; sourceTree = "<group>"; };
+		9F48B4141DB777E000E52E26 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
+		9F48B4171DB7788B00E52E26 /* UIBezierPath+Clipper.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "UIBezierPath+Clipper.mm"; sourceTree = "<group>"; };
+		9F48B4191DB778FE00E52E26 /* UIBezierPath+Clipper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Clipper.h"; sourceTree = "<group>"; };
 		9F79AB9D1DB635E700873CB2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9F79ABBA1DB6482C00873CB2 /* CollectionType+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+Sweetness.swift"; sourceTree = "<group>"; };
 		9F79ABBB1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+Sweetness.swift"; sourceTree = "<group>"; };
@@ -85,7 +102,6 @@
 		9F7F11D21DB4C81C00B322F5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9F7F11D41DB4C82000B322F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9F7F11D61DB4C82400B322F5 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		9F91E6D21DB535BF00FE220F /* location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = location.gpx; path = ../../../Desktop/location.gpx; sourceTree = "<group>"; };
 		9F950A3D1DB4CF9600D394D0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9FF0AAD91DB4D8F900AAE5A5 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		9FF0AADA1DB4D8F900AAE5A5 /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Realm.framework.dSYM; sourceTree = "<group>"; };
@@ -180,7 +196,6 @@
 		147A139B1B92B9E300E52F9C = {
 			isa = PBXGroup;
 			children = (
-				9F91E6D21DB535BF00FE220F /* location.gpx */,
 				141A6FD31BDE2DAB00CB6E82 /* Library */,
 				146E278A1BCD51C800959BBA /* iOS */,
 				1483128A1B92C11500266943 /* Tests */,
@@ -219,6 +234,9 @@
 		9F15583E1DAFAC0F00855858 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				9F48B4071DB772B100E52E26 /* iOS-Bridging-Header.h */,
+				9F48B4111DB777E000E52E26 /* Clipper */,
+				9F48B4061DB7725A00E52E26 /* UIBezierPath+Fitting */,
 				9F79ABC01DB6483000873CB2 /* SweetFoundation */,
 				9F79ABB91DB6481D00873CB2 /* SweetSwift */,
 				9FF0AAD91DB4D8F900AAE5A5 /* Realm.framework */,
@@ -244,6 +262,31 @@
 				9F1F5B201DAFB05700636502 /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9F48B4061DB7725A00E52E26 /* UIBezierPath+Fitting */ = {
+			isa = PBXGroup;
+			children = (
+				9F48B4081DB772B100E52E26 /* UIBezierPath-Bounding.h */,
+				9F48B4091DB772B100E52E26 /* UIBezierPath-Bounding.m */,
+				9F48B40A1DB772B100E52E26 /* UIBezierPath-Fitting.h */,
+				9F48B40B1DB772B100E52E26 /* UIBezierPath-Fitting.m */,
+				9F48B40C1DB772B100E52E26 /* UIBezierPath-Points.h */,
+				9F48B40D1DB772B100E52E26 /* UIBezierPath-Points.m */,
+				9F48B4191DB778FE00E52E26 /* UIBezierPath+Clipper.h */,
+				9F48B4171DB7788B00E52E26 /* UIBezierPath+Clipper.mm */,
+			);
+			name = "UIBezierPath+Fitting";
+			sourceTree = "<group>";
+		};
+		9F48B4111DB777E000E52E26 /* Clipper */ = {
+			isa = PBXGroup;
+			children = (
+				9F48B4121DB777E000E52E26 /* clipper.cpp */,
+				9F48B4131DB777E000E52E26 /* clipper.hpp */,
+				9F48B4141DB777E000E52E26 /* License.txt */,
+			);
+			path = Clipper;
 			sourceTree = "<group>";
 		};
 		9F79ABB91DB6481D00873CB2 /* SweetSwift */ = {
@@ -354,7 +397,7 @@
 			files = (
 				146E27AA1BCD51F200959BBA /* Images.xcassets in Resources */,
 				9FF0AADE1DB4D8F900AAE5A5 /* Realm.framework.dSYM in Resources */,
-				9F91E6D31DB535BF00FE220F /* location.gpx in Resources */,
+				9F48B4161DB777E000E52E26 /* License.txt in Resources */,
 				9F1F5B191DAFAF4600636502 /* SweetUIKit.framework.dSYM in Resources */,
 				9FF0AAE01DB4D8F900AAE5A5 /* RealmSwift.framework.dSYM in Resources */,
 				146E27A91BCD51F200959BBA /* LaunchScreen.xib in Resources */,
@@ -410,9 +453,14 @@
 				14425E551C97078A00F0FAD1 /* Theme+Font.swift in Sources */,
 				9F79ABBE1DB6482C00873CB2 /* RawRepresentable+Sweetness.swift in Sources */,
 				9F79ABC31DB6484100873CB2 /* DispatchQueue+Sweetness.swift in Sources */,
+				9F48B4101DB772B100E52E26 /* UIBezierPath-Points.m in Sources */,
 				9F79ABC41DB6484100873CB2 /* IndexPath+Sweetness.swift in Sources */,
 				9F79ABBF1DB6482C00873CB2 /* String+Sweetness.swift in Sources */,
+				9F48B40F1DB772B100E52E26 /* UIBezierPath-Fitting.m in Sources */,
+				9F48B41A1DB7796A00E52E26 /* UIBezierPath+Clipper.mm in Sources */,
 				9F79ABBD1DB6482C00873CB2 /* CollectionType+Sweetness.swift in Sources */,
+				9F48B40E1DB772B100E52E26 /* UIBezierPath-Bounding.m in Sources */,
+				9F48B4151DB777E000E52E26 /* clipper.cpp in Sources */,
 				9FF0AAE31DB4D95900AAE5A5 /* GPSHistory.swift in Sources */,
 				9F1F5B231DB1140E00636502 /* FogLayer.swift in Sources */,
 				146E27AD1BCD51F200959BBA /* MapController.swift in Sources */,
@@ -461,6 +509,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demoapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Vendor/iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -483,6 +532,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demoapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Vendor/iOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
