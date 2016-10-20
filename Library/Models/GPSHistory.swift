@@ -118,6 +118,8 @@ class Travel {
     }
 
     func simplify() {
+        return
+        
         guard self.positions.count > 2 else { return }
 
         self.simplify(timeOffset: 5.0) // second
