@@ -1,7 +1,13 @@
 import UIKit
+import CoreGraphics
 
 class FogLayer: CALayer {
-    var path: UIBezierPath?
+
+    var path: UIBezierPath? {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
 
     var backgroundImageColor: UIColor
 
@@ -28,8 +34,6 @@ class FogLayer: CALayer {
         ctx.fill(self.bounds)
         ctx.setBlendMode(.clear)
 
-        self.path?.lineWidth = 2
-        self.path?.stroke()
         self.path?.fill()
 
         UIGraphicsPopContext()

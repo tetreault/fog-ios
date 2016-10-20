@@ -154,7 +154,6 @@ class MapController: UIViewController {
         }
 
         self.fogLayer.path = path
-        self.fogLayer.setNeedsDisplay()
 
         if self.isDebuggingPositions {
             var idx = 1
@@ -252,6 +251,8 @@ extension MapController: MKMapViewDelegate {
         let tree = QuadTree<Position>(frame: self.mapView.bounds)
         let travel = self.history.travels.last!
 
+        travel.simplify()
+
 //        let latitudeDegrees = mapView.region.center.latitude
 //        let latitudeRadians = latitudeDegrees * M_PI / 180.0
 //        let longitudeDelta = mapView.region.span.longitudeDelta
@@ -270,7 +271,7 @@ extension MapController: MKMapViewDelegate {
 
         let size = Converter.boxSize(forMeters: deltaMeters)
 
-        print("Delta: \(deltaMeters)m. Size: \(size).")
+        // print("Delta: \(deltaMeters)m. Size: \(size).")
 
         let widthCount = Int(ceil(self.mapView.frame.width / CGFloat(size)))
         let heightCount = Int(ceil(self.mapView.frame.height / CGFloat(size)))
@@ -305,7 +306,8 @@ extension MapController: MKMapViewDelegate {
                     }
 
                     travel.positions.insert(sorted.first!)
-                    travel.positions.insert(sorted[1])
+                } else if positions.count == 1 {
+                    travel.positions.insert(positions.first!)
                 }
             }
         }
