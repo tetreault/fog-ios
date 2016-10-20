@@ -34,6 +34,10 @@ class MapController: UIViewController {
         return realm
     }()
 
+    lazy var positions: Set<Position> = {
+        return Set<Position>(self.realm.objects(Position.self))
+    }()
+
     lazy var history: GPSHistory = {
         let history = GPSHistory()
         history.delegate = self
@@ -247,13 +251,12 @@ extension MapController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let tree = QuadTree<Position>(frame: self.mapView.bounds)
         let travel = self.history.travels.last!
-        travel.positions = Set<Position>(self.realm.objects(Position.self))
 
 //        let latitudeDegrees = mapView.region.center.latitude
 //        let latitudeRadians = latitudeDegrees * M_PI / 180.0
 //        let longitudeDelta = mapView.region.span.longitudeDelta
 
-        let currentPositions = Array(travel.positions).sorted { (a, b) -> Bool in
+        let currentPositions = Array(self.positions).sorted { (a, b) -> Bool in
             return a.timestamp.compare(b.timestamp) == .orderedAscending
         }
 
