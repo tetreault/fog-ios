@@ -13,10 +13,10 @@
 // Return distance between two points
 static float distance (CGPoint p1, CGPoint p2)
 {
-	float dx = p2.x - p1.x;
-	float dy = p2.y - p1.y;
-	
-	return sqrt(dx*dx + dy*dy);
+    float dx = p2.x - p1.x;
+    float dy = p2.y - p1.y;
+
+    return sqrt(dx*dx + dy*dy);
 }
 
 @implementation UIBezierPath (Points)
@@ -48,10 +48,16 @@ void getPointsFromBezier(void *info, const CGPathElement *element)
 + (UIBezierPath *) pathWithPoints: (NSArray *) points
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
-    if (points.count == 0) return path;
+    if (points.count == 0) {
+        return path;
+    }
+
     [path moveToPoint:POINT(0)];
-    for (int i = 1; i < points.count; i++)
+
+    for (int i = 1; i < points.count; i++) {
         [path addLineToPoint:POINT(i)];
+    }
+
     return path;
 }
 
@@ -68,24 +74,39 @@ void getPointsFromBezier(void *info, const CGPathElement *element)
 {
     // Use total length to calculate the percent of path consumed at each control point
     NSArray *points = self.points;
-    int pointCount = points.count;
-    
+    NSInteger pointCount = points.count;
+
     float totalPointLength = self.length;
     float distanceTravelled = 0.0f;
-    
-	NSMutableArray *pointPercentArray = [NSMutableArray array];
-	[pointPercentArray addObject:@(0.0)];
-    
-	for (int i = 1; i < pointCount; i++)
-	{
-		distanceTravelled += distance(POINT(i), POINT(i-1));
-		[pointPercentArray addObject:@(distanceTravelled / totalPointLength)];
-	}
-	
-	// Add a final item just to stop with. Probably not needed.
-	[pointPercentArray addObject:@1.1f]; // 110%
-    
+
+    NSMutableArray *pointPercentArray = [NSMutableArray array];
+    [pointPercentArray addObject:@(0.0)];
+
+    for (int i = 1; i < pointCount; i++)
+    {
+        distanceTravelled += distance(POINT(i), POINT(i-1));
+        [pointPercentArray addObject:@(distanceTravelled / totalPointLength)];
+    }
+
+    // Add a final item just to stop with. Probably not needed.
+    [pointPercentArray addObject:@1.1f]; // 110%
+
     return pointPercentArray;
+}
+
+- (NSInteger)indexOfPoint:(CGPoint)point {
+    NSInteger index = [self.points indexOfObjectPassingTest:^BOOL(NSValue * _Nonnull pointValue, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGPoint p = pointValue.CGPointValue;
+        if (p.y == point.y && p.x == point.x) {
+            *stop = true;
+
+            return idx;
+        }
+
+        return NSNotFound;
+    }];
+
+    return index;
 }
 
 - (CGPoint) pointAtPercent: (CGFloat) percent withSlope: (CGPoint *) slope
@@ -93,10 +114,10 @@ void getPointsFromBezier(void *info, const CGPathElement *element)
     NSArray *points = self.points;
     NSArray *percentArray = self.pointPercentArray;
     CFIndex lastPointIndex = points.count - 1;
-    
+
     if (!points.count)
         return CGPointZero;
-    
+
     // Check for 0% and 100%
     if (percent <= 0.0f) return POINT(0);
     if (percent >= 1.0f) return POINT(lastPointIndex);
@@ -106,29 +127,29 @@ void getPointsFromBezier(void *info, const CGPathElement *element)
     while ((index < percentArray.count) &&
            (percent > ((NSNumber *)percentArray[index]).floatValue))
         index++;
-    
+
     // This should not happen.
     if (index > lastPointIndex) return POINT(lastPointIndex);
-    
+
     // Calculate the intermediate distance between the two points
     CGPoint point1 = POINT(index -1);
     CGPoint point2 = POINT(index);
-    
+
     float percent1 = [percentArray[index - 1] floatValue];
     float percent2 = [percentArray[index] floatValue];
     float percentOffset = (percent - percent1) / (percent2 - percent1);
-    
+
     float dx = point2.x - point1.x;
     float dy = point2.y - point1.y;
-    
+
     // Store dy, dx for retrieving arctan
     if (slope) *slope = CGPointMake(dx, dy);
-    
+
     // Calculate new point
     CGFloat newX = point1.x + (percentOffset * dx);
     CGFloat newY = point1.y + (percentOffset * dy);
     CGPoint targetPoint = CGPointMake(newX, newY);
-    
+
     return targetPoint;
 }
 
@@ -153,7 +174,7 @@ void getBezierElements(void *info, const CGPathElement *element)
         case kCGPathElementAddCurveToPoint:
             [bezierElements addObject:@[@(type), VALUE(0), VALUE(1), VALUE(2)]];
             break;
-    }   
+    }
 }
 
 - (NSArray *) bezierElements
@@ -167,11 +188,11 @@ void getBezierElements(void *info, const CGPathElement *element)
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     if (elements.count == 0) return path;
-    
+
     for (NSArray *points in elements)
     {
         if (!points.count) continue;
-        CGPathElementType elementType = [points[0] integerValue];
+        CGPathElementType elementType = (CGPathElementType)[points[0] integerValue];
         switch (elementType)
         {
             case kCGPathElementCloseSubpath:

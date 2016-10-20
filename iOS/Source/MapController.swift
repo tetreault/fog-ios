@@ -173,7 +173,7 @@ class MapController: UIViewController {
                 }
             }
             
-            self.fogLayer.path = path
+            self.fogLayer.path = simplify(path: path)
         }
 
         if self.isDebuggingPositions {

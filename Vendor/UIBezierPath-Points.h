@@ -13,6 +13,7 @@
 
 @property (nonatomic, readonly, copy) NSArray *pointPercentArray;
 - (CGPoint) pointAtPercent: (CGFloat) percent withSlope: (CGPoint *) slope;
+- (NSInteger)indexOfPoint:(CGPoint)point;
 + (UIBezierPath *) pathWithPoints: (NSArray *) points;
 + (UIBezierPath *) pathWithElements: (NSArray *) elements;
 @end

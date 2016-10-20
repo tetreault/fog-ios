@@ -18,6 +18,133 @@ extension CLLocation {
     }
 }
 
+extension UIBezierPath {
+    func nextPointFrom(point: CGPoint) -> CGPoint? {
+        let index  = self.index(of: point)
+        guard index != NSNotFound  else { return nil }
+
+        let newIndex = index.advanced(by: 1)
+
+        guard newIndex < self.points.count else { return nil }
+
+        return self.points[newIndex].cgPointValue
+    }
+
+}
+
+func intersection(p1: CGPoint, p2: CGPoint, p3: CGPoint, p4: CGPoint) -> CGPoint? {
+    let x1 = p1.x, x2 = p2.x, x3 = p3.x, x4 = p4.x
+    let y1 = p1.y, y2 = p2.y, y3 = p3.y, y4 = p4.y
+
+    let z1 = (x1 - x2), z2 = (x3 - x4), z3 = (y1 - y2), z4 = (y3 - y4)
+    let d = (z1 * z4) - (z3 * z2)
+
+    // If d is zero, there is no intersection
+    if (d == 0) {
+        return nil
+    }
+
+    // Get the x and y
+    let pre = (x1*y2 - y1*x2), post = (x3*y4 - y3*x4)
+    let x = ( pre * z2 - z1 * post ) / d
+    let y = ( pre * z4 - z3 * post ) / d
+
+    // Check if the x and y coordinates are within both lines
+    if ( x < min(x1, x2) || x > max(x1, x2) || x < min(x3, x4) || x > max(x3, x4) ) {
+        return nil
+    }
+
+    if ( y < min(y1, y2) || y > max(y1, y2) || y < min(y3, y4) || y > max(y3, y4) ) {
+        return nil
+    }
+
+    // we got an intersection
+    return CGPoint(x: x, y: y)
+}
+
+struct Component {
+    var a: CGPoint
+    var b: CGPoint
+
+    var startPoint: CGPoint
+    var intersectionPoint: CGPoint
+    var endPoint: CGPoint
+
+    var length: CGFloat
+}
+
+struct Segment {
+    var current: CGPoint
+    var next: CGPoint
+
+    func intersections(with path: UIBezierPath) -> [Component] {
+        let totalLength = sqrt(pow(self.current.x - self.next.x, 2) + pow(self.current.y + self.next.y, 2))
+
+        var returns = [Component]()
+
+        for pointValue in path.points {
+            let c = pointValue.cgPointValue
+            guard let n = path.nextPointFrom(point: c) else { continue }
+
+            if n.equalTo(self.next) {
+                continue
+            }
+
+            if let intersection = intersection(p1: self.current, p2: self.next, p3: c, p4: n) {
+                let length = sqrt(pow(self.current.x - intersection.x, 2) + pow(self.current.y - intersection.y, 2))
+
+                if length > 0.1 && length < totalLength {
+                    let component = Component(a: self.current, b: self.next, startPoint: c, intersectionPoint: intersection, endPoint: n, length: length)
+                    returns.append(component)
+                }
+            }
+        }
+
+        return returns
+    }
+}
+
+func simplify(path: UIBezierPath) -> UIBezierPath {
+    var points = [CGPoint]()
+
+    let firstPoint = path.currentPoint
+    var currentPoint = firstPoint
+
+    points.append(currentPoint)
+
+    var nextPoint = path.nextPointFrom(point: currentPoint)
+
+    while currentPoint.y != firstPoint.y && currentPoint.y != firstPoint.y {
+        guard let next = nextPoint else { fatalError() }
+
+        let segment = Segment(current: currentPoint, next: next)
+        let intersections = segment.intersections(with: path)
+
+        if intersections.count == 0 {
+            points.append(next)
+            currentPoint = next
+            nextPoint = path.nextPointFrom(point: currentPoint)
+        } else {
+            let closestIntersection = intersections.first!
+
+            points.append(closestIntersection.intersectionPoint)
+            currentPoint = closestIntersection.intersectionPoint
+            nextPoint = closestIntersection.endPoint
+        }
+    }
+
+    let simplifiedPath = UIBezierPath()
+    simplifiedPath.move(to: firstPoint)
+
+    for point in points {
+        simplifiedPath.addLine(to: point)
+    }
+
+    simplifiedPath.close()
+
+    return simplifiedPath
+}
+
 struct Converter {
     static func boxSize(forMeters meters: Double) -> Int {
         var size = 60
@@ -119,7 +246,7 @@ class Travel {
 
     func simplify() {
         return
-        
+
         guard self.positions.count > 2 else { return }
 
         self.simplify(timeOffset: 5.0) // second

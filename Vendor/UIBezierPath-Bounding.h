@@ -9,6 +9,6 @@
 
 @interface UIBezierPath (Bounding)
 @property (nonatomic, readonly) UIBezierPath *convexHull;
-@property (nonatomic, readonly) NSArray *sortedPoints;
+@property (nonatomic, readonly) NSArray<NSValue *> *sortedPoints;
 @end
 

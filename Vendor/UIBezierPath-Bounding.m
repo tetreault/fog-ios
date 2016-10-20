@@ -9,7 +9,7 @@
 #define POINT(_INDEX_) [(NSValue *)[points objectAtIndex:_INDEX_] CGPointValue]
 
 @implementation UIBezierPath (Bounding)
-static CGRect pointRect(CGPoint point) {
+__unused static CGRect pointRect(CGPoint point) {
     return (CGRect){.origin=point};
 }
 
@@ -34,7 +34,7 @@ static float halfPlane(CGPoint p1, CGPoint p2, CGPoint testPoint) {
     return (p2.x-p1.x)*(testPoint.y-p1.y) - (testPoint.x-p1.x)*(p2.y-p1.y);
 }
 
-- (UIBezierPath *) convexHull {
+- (UIBezierPath *)convexHull {
     /*
      minmin = top left, min x, min y
      minmax = bottom left, min x, max y
@@ -69,7 +69,7 @@ static float halfPlane(CGPoint p1, CGPoint p2, CGPoint testPoint) {
             output[++top] = points[minmin];
         }
 
-        for (int i = top + 1; i < output.count; i++)
+        for (NSInteger i = top + 1; i < output.count; i++)
             [output removeObjectAtIndex:i];
         
         return [UIBezierPath pathWithPoints:output];
