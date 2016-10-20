@@ -7,7 +7,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIBezierPath (Points)
-@property (nonatomic, readonly) NSArray *points;
+@property (nonatomic, readonly) NSArray<NSValue*> *points;
 @property (nonatomic, readonly) NSArray *bezierElements;
 @property (nonatomic, readonly) CGFloat length;
 

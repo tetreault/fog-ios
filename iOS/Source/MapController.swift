@@ -146,14 +146,30 @@ class MapController: UIViewController {
     func updateDisplayLink() {
         self.fogLayer.frame = self.mapView.frame
 
+        var pathAlreadyRendered = 0
+        var overlaysOffscreen = 0
         let path = UIBezierPath()
         for overlay in self.mapView.overlays {
             if let overlay = overlay as? MKCircle {
-                path.append(self.circlePath(with: overlay))
+                let bounds = self.mapView.convertRegion(MKCoordinateRegionForMapRect(overlay.boundingMapRect), toRectTo: self.mapView)
+                if !self.mapView.bounds.intersects(bounds) {
+                    overlaysOffscreen += 1
+                    continue
+                }
+
+                let circle = self.circlePath(with: overlay)
+                for point in circle.points {
+                    if !path.contains(point.cgPointValue) {
+                        pathAlreadyRendered += 1
+                        path.append(circle)
+                        break
+                    }
+                }
             }
         }
 
         self.fogLayer.path = path
+        // print("Total: \(self.mapView.overlays.count), offscreen: \(overlaysOffscreen), already clipped: \(pathAlreadyRendered)")
 
         if self.isDebuggingPositions {
             var idx = 1
