@@ -9,7 +9,7 @@
 #define POINT(_INDEX_) [(NSValue *)[points objectAtIndex:_INDEX_] CGPointValue]
 
 @implementation UIBezierPath (Bounding)
-static CGRect pointRect(CGPoint point) {
+__unused static CGRect pointRect(CGPoint point) {
     return (CGRect){.origin=point};
 }
 
@@ -69,7 +69,7 @@ static float halfPlane(CGPoint p1, CGPoint p2, CGPoint testPoint) {
             output[++top] = points[minmin];
         }
 
-        for (int i = top + 1; i < output.count; i++)
+        for (NSInteger i = top + 1; i < output.count; i++)
             [output removeObjectAtIndex:i];
         
         return [UIBezierPath pathWithPoints:output];
