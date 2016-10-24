@@ -42,7 +42,7 @@ struct Converter {
             size = 35
         } else if meters > 400 && meters <= 600 {
             size = 45
-        } else if meters > 6000 && meters <= 1000 {
+        } else if meters > 600 && meters <= 1000 {
             size = 55
         } else if meters > 1000 {
             size = 70
