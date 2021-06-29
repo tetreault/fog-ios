@@ -1,4 +1,4 @@
-import SweetUIKit
+//import SweetUIKit
 import CoreLocation
 import MapKit
 import CoreImage
@@ -24,7 +24,7 @@ class MapController: UIViewController {
     }()
 
     lazy var mapView: MKMapView = {
-        let view = MKMapView(withAutoLayout: true)
+        let view = MKMapView(frame: .zero/*withAutoLayout: true*/)
         view.showsUserLocation = true
         view.delegate = self
 
@@ -61,8 +61,8 @@ class MapController: UIViewController {
         self.view.addSubview(self.mapView)
         self.view.layer.addSublayer(self.fogLayer)
 
-        self.mapView.fillSuperview()
-        self.displayLink.add(to: RunLoop.main, forMode: .commonModes)
+        //self.mapView.fillSuperview()
+        self.displayLink.add(to: RunLoop.main,  forMode: RunLoop.Mode.common)
 
         // Bonn office: +50.73396677,+7.09824396
 
@@ -124,8 +124,8 @@ class MapController: UIViewController {
     }
 
     func circlePath(with overlay: MKCircle) -> UIBezierPath {
-        let region = MKCoordinateRegionForMapRect(overlay.boundingMapRect)
-        let frame = self.mapView.convertRegion(region, toRectTo: self.mapView)
+        let region = MKCoordinateRegion(overlay.boundingMapRect)
+        let frame = self.mapView.convert(region, toRectTo: self.mapView)
 
         let path = UIBezierPath(roundedRect: frame, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: frame.width / 2, height: frame.height / 2))
 
@@ -137,7 +137,7 @@ class MapController: UIViewController {
 
         var points = [CGPoint]()
         for mapPoint in UnsafeBufferPointer(start: overlay.points(), count: overlay.pointCount) {
-            let coordinate = MKCoordinateForMapPoint(mapPoint)
+            let coordinate = mapPoint.coordinate
             let point = self.mapView.convert(coordinate, toPointTo: self.view)
             points.append(point)
         }
@@ -157,7 +157,7 @@ class MapController: UIViewController {
         return path
     }
 
-    func updateDisplayLink() {
+    @objc func updateDisplayLink() {
         self.fogLayer.frame = self.mapView.frame
 
         let path = UIBezierPath()

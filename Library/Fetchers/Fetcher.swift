@@ -1,11 +1,11 @@
 import Foundation
-import Networking
+//import Networking
 
 class Fetcher {
 
-    var networking: Networking
+    //var networking: Networking
 
     init(baseURL: String) {
-        self.networking = Networking(baseURL: baseURL)
+    //    self.networking = Networking(baseURL: baseURL)
     }
 }

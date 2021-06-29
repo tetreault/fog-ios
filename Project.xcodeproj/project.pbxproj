@@ -17,18 +17,10 @@
 		146E27AC1BCD51F200959BBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146E27A41BCD51F200959BBA /* AppDelegate.swift */; };
 		146E27AD1BCD51F200959BBA /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146E27A51BCD51F200959BBA /* MapController.swift */; };
 		1483128E1B92C11500266943 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1483128D1B92C11500266943 /* Tests.swift */; };
-		9F1F5B121DAFAF4600636502 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0A1DAFAF4600636502 /* Networking.framework */; };
 		9F1F5B131DAFAF4600636502 /* Networking.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F5B0B1DAFAF4600636502 /* Networking.framework.dSYM */; };
-		9F1F5B141DAFAF4600636502 /* SweetFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0C1DAFAF4600636502 /* SweetFoundation.framework */; };
 		9F1F5B151DAFAF4600636502 /* SweetFoundation.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F5B0D1DAFAF4600636502 /* SweetFoundation.framework.dSYM */; };
-		9F1F5B161DAFAF4600636502 /* SweetSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0E1DAFAF4600636502 /* SweetSwift.framework */; };
 		9F1F5B171DAFAF4600636502 /* SweetSwift.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F5B0F1DAFAF4600636502 /* SweetSwift.framework.dSYM */; };
-		9F1F5B181DAFAF4600636502 /* SweetUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */; };
 		9F1F5B191DAFAF4600636502 /* SweetUIKit.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F5B111DAFAF4600636502 /* SweetUIKit.framework.dSYM */; };
-		9F1F5B1B1DAFAF5F00636502 /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0A1DAFAF4600636502 /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9F1F5B1C1DAFAF5F00636502 /* SweetFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0C1DAFAF4600636502 /* SweetFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9F1F5B1D1DAFAF5F00636502 /* SweetSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B0E1DAFAF4600636502 /* SweetSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9F1F5B1E1DAFAF5F00636502 /* SweetUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B101DAFAF4600636502 /* SweetUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F1F5B211DAFB05700636502 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F5B201DAFB05700636502 /* MapKit.framework */; };
 		9F1F5B231DB1140E00636502 /* FogLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F5B221DB1140E00636502 /* FogLayer.swift */; };
 		9F7F11D31DB4C81C00B322F5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11D21DB4C81C00B322F5 /* CFNetwork.framework */; };
@@ -37,23 +29,6 @@
 		9F7F11D81DB4C8D500B322F5 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7F11CF1DB4C80A00B322F5 /* Reveal.framework */; };
 		9F950A3E1DB4CF9600D394D0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F950A3D1DB4CF9600D394D0 /* libz.tbd */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9F1F5B1A1DAFAF4E00636502 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				9F1F5B1B1DAFAF5F00636502 /* Networking.framework in Embed Frameworks */,
-				9F1F5B1C1DAFAF5F00636502 /* SweetFoundation.framework in Embed Frameworks */,
-				9F1F5B1D1DAFAF5F00636502 /* SweetSwift.framework in Embed Frameworks */,
-				9F1F5B1E1DAFAF5F00636502 /* SweetUIKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		143F99F51D8C5B78005D1552 /* Theme+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Theme+Color.swift"; sourceTree = "<group>"; };
@@ -95,11 +70,7 @@
 				9F7F11D51DB4C82000B322F5 /* QuartzCore.framework in Frameworks */,
 				9F7F11D31DB4C81C00B322F5 /* CFNetwork.framework in Frameworks */,
 				9F1F5B211DAFB05700636502 /* MapKit.framework in Frameworks */,
-				9F1F5B141DAFAF4600636502 /* SweetFoundation.framework in Frameworks */,
 				9F7F11D81DB4C8D500B322F5 /* Reveal.framework in Frameworks */,
-				9F1F5B121DAFAF4600636502 /* Networking.framework in Frameworks */,
-				9F1F5B181DAFAF4600636502 /* SweetUIKit.framework in Frameworks */,
-				9F1F5B161DAFAF4600636502 /* SweetSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +217,6 @@
 				146E27861BCD51C800959BBA /* Frameworks */,
 				146E27871BCD51C800959BBA /* Resources */,
 				14425E4A1C96FED200F0FAD1 /* Highlight TODOs, FIXMEs and WARNINGs */,
-				9F1F5B1A1DAFAF4E00636502 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -302,6 +272,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -419,12 +390,12 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = iOS/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demoapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -439,12 +410,12 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = iOS/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demoapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -552,7 +523,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rename.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -569,7 +540,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rename.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
