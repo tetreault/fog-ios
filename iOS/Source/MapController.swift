@@ -1,13 +1,11 @@
-//import SweetUIKit
+import CoreImage
+// import SweetUIKit
 import CoreLocation
 import MapKit
-import CoreImage
 
 fileprivate let userPinReuseIdentifier = "userPin"
 
 class MapController: UIViewController {
-    var fetcher: Fetcher
-
     var latestCoordinate: CLLocationCoordinate2D?
 
     var isTrackingUser = true
@@ -24,7 +22,7 @@ class MapController: UIViewController {
     }()
 
     lazy var mapView: MKMapView = {
-        let view = MKMapView(frame: UIScreen.main.bounds/*withAutoLayout: true*/)
+        let view = MKMapView(frame: UIScreen.main.bounds /* withAutoLayout: true */ )
         view.showsUserLocation = true
         view.delegate = self
 
@@ -32,7 +30,7 @@ class MapController: UIViewController {
     }()
 
     lazy var fogLayer: FogLayer = {
-        return FogLayer()
+        FogLayer()
     }()
 
     lazy var displayLink: CADisplayLink = {
@@ -43,9 +41,7 @@ class MapController: UIViewController {
 
     var visitedLines = [MKPolyline]()
 
-    public init(fetcher: Fetcher) {
-        self.fetcher = fetcher
-
+    public init() {
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -56,13 +52,13 @@ class MapController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.locationManager.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
 
-        self.view.addSubview(self.mapView)
-        self.view.layer.addSublayer(self.fogLayer)
+        view.addSubview(mapView)
+        view.layer.addSublayer(fogLayer)
 
-        //self.mapView.fillSuperview()
-        self.displayLink.add(to: RunLoop.main,  forMode: RunLoop.Mode.common)
+        // self.mapView.fillSuperview()
+        displayLink.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
 
         // Bonn office: +50.73396677,+7.09824396
 
@@ -77,7 +73,7 @@ class MapController: UIViewController {
             CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734258), longitude: CLLocationDegrees(7.103603)),
             CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734431), longitude: CLLocationDegrees(7.104472)),
             CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734601), longitude: CLLocationDegrees(7.104649)),
-            ]
+        ]
 
         let points2 = [
             CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669630), longitude: CLLocationDegrees(7.183780)),
@@ -95,7 +91,7 @@ class MapController: UIViewController {
         let line1 = MKPolyline(coordinates: points, count: points.count)
         let line2 = MKPolyline(coordinates: points2, count: points2.count)
 
-        self.mapView.addOverlays([line1, line2])
+        mapView.addOverlays([line1, line2])
 
         var circles = [MKCircle]()
 
@@ -107,9 +103,9 @@ class MapController: UIViewController {
             circles.append(MKCircle(center: point, radius: CLLocationDistance(50.0)))
         }
 
-        self.mapView.addOverlays(circles)
+        mapView.addOverlays(circles)
 
-        if self.isDebuggingPositions {
+        if isDebuggingPositions {
             var idx = 1
             for point in points {
                 let pointAnnotation = MKPointAnnotation()
@@ -118,14 +114,14 @@ class MapController: UIViewController {
 
                 idx += 1
 
-                self.mapView.addAnnotation(pointAnnotation)
+                mapView.addAnnotation(pointAnnotation)
             }
         }
     }
 
     func circlePath(with overlay: MKCircle) -> UIBezierPath {
         let region = MKCoordinateRegion(overlay.boundingMapRect)
-        let frame = self.mapView.convert(region, toRectTo: self.mapView)
+        let frame = mapView.convert(region, toRectTo: mapView)
 
         let path = UIBezierPath(roundedRect: frame, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: frame.width / 2, height: frame.height / 2))
 
@@ -138,7 +134,7 @@ class MapController: UIViewController {
         var points = [CGPoint]()
         for mapPoint in UnsafeBufferPointer(start: overlay.points(), count: overlay.pointCount) {
             let coordinate = mapPoint.coordinate
-            let point = self.mapView.convert(coordinate, toPointTo: self.view)
+            let point = mapView.convert(coordinate, toPointTo: view)
             points.append(point)
         }
 
@@ -158,12 +154,12 @@ class MapController: UIViewController {
     }
 
     @objc func updateDisplayLink() {
-        self.fogLayer.frame = self.mapView.frame
+        fogLayer.frame = mapView.frame
 
         let path = UIBezierPath()
-        for overlay in self.mapView.overlays {
+        for overlay in mapView.overlays {
             if let overlay = overlay as? MKCircle {
-                path.append(self.circlePath(with: overlay))
+                path.append(circlePath(with: overlay))
             } else if let overlay = overlay as? MKPolyline {
                 let linePath = self.linePath(with: overlay)
                 linePath.lineWidth = 20
@@ -174,12 +170,12 @@ class MapController: UIViewController {
         path.lineJoinStyle = .round
         path.lineCapStyle = .round
 
-        self.fogLayer.path = path
-        self.fogLayer.setNeedsDisplay()
+        fogLayer.path = path
+        fogLayer.setNeedsDisplay()
     }
 
     func mapViewRegionDidChangeFromUserInteraction() -> Bool {
-        guard let view = self.mapView.subviews.first else { return false }
+        guard let view = mapView.subviews.first else { return false }
         guard let gestureRecognizers = view.gestureRecognizers else { return false }
 
         for recognizer in gestureRecognizers {
@@ -193,21 +189,19 @@ class MapController: UIViewController {
 }
 
 extension MapController: CLLocationManagerDelegate {
-
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
 
-        if self.isTrackingUser {
+        if isTrackingUser {
             let region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
-            self.mapView.setRegion(region, animated: true)
+            mapView.setRegion(region, animated: true)
         }
     }
 }
 
 extension MapController: MKMapViewDelegate {
-
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        self.isTrackingUser = !self.mapViewRegionDidChangeFromUserInteraction()
+        isTrackingUser = !mapViewRegionDidChangeFromUserInteraction()
     }
 
 //    // Uncomment to draw paths for debugging
@@ -216,10 +210,10 @@ extension MapController: MKMapViewDelegate {
 //                let lineRenderer = MKPolylineRenderer(polyline: overlay)
 //                lineRenderer.lineWidth = 20
 //                lineRenderer.strokeColor = .magenta
-//    
+//
 //                return lineRenderer
 //            }
-//    
+//
 //            return MKOverlayRenderer(overlay: overlay)
 //        }
 }
