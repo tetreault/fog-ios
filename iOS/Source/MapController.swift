@@ -88,6 +88,12 @@ class MapController: UIViewController {
             CLLocationCoordinate2D(latitude: CLLocationDegrees(50.734176), longitude: CLLocationDegrees(7.098603)),
         ]
 
+        // Set the map center
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(50.669630), longitude: CLLocationDegrees(7.183780)),
+                                        latitudinalMeters: CLLocationDistance(800),
+                                        longitudinalMeters: CLLocationDistance(800))
+        mapView.setRegion(region, animated: true)
+
         let line1 = MKPolyline(coordinates: points, count: points.count)
         let line2 = MKPolyline(coordinates: points2, count: points2.count)
 
