@@ -24,7 +24,7 @@ class MapController: UIViewController {
     }()
 
     lazy var mapView: MKMapView = {
-        let view = MKMapView(frame: .zero/*withAutoLayout: true*/)
+        let view = MKMapView(frame: UIScreen.main.bounds/*withAutoLayout: true*/)
         view.showsUserLocation = true
         view.delegate = self
 
